@@ -1,16 +1,31 @@
+// Initialisation des variables
 let allProject = [];
-//Récuperation des travaux
 const response = await fetch("http://localhost:5678/api/works");
-const works = await response.json();
 
-allProject = works;
+//Récuperation des travaux
+async function fetchWork() {
+  if (response.ok) {
+    // without return, we log the error to
+    return response.json();
+  }
+  throw new Error("Erreur lors de la récuperation des données");
+}
+// Traitements des data reçu
+fetchWork().then((works) => {
+  generateGalerie(works);
+  filterObjets(works);
+});
+// Appel des fonction
 
-//console.log(allProject);
+generateMenu();
 
-function generateGalerie(allProject) {
+// Creation des fonction
+
+// Affichage dynamique de la gallerie
+function generateGalerie(works) {
   const gallery = document.querySelector(".gallery");
+  console.log(works);
   gallery.innerHTML = "";
-  //console.log(works);
   for (let i = 0; i < works.length; i++) {
     const figure = document.createElement("figure");
     const img = document.createElement("img");
@@ -24,42 +39,42 @@ function generateGalerie(allProject) {
     figure.appendChild(figcaption);
   }
 }
-generateGalerie();
 
-// function generateMenuCategorie () {
-//   document.querySelector('')
+// Affichage dynamique des bouttons
+function generateMenu() {
+  const mesProjets = document.querySelector("#portfolio h2");
 
-// }
+  const divButton = document.createElement("div");
+  const buttonAllProject = document.createElement("button");
+  const buttonObject = document.createElement("button");
+  const buttonAppart = document.createElement("button");
+  const buttonHotelRestaurant = document.createElement("button");
 
-// async function fetchWork() {
-//   const response = await fetch("http://localhost:5678/api/works");
-//   if (response.ok) {
-//     response.json();
-//     console.log(response.json);
-//   }
-//   throw new Error("il y a une erreur de recuperation des données");
-// }
+  buttonAllProject.innerText = "Tous";
+  buttonAllProject.setAttribute("id", "btn-all");
 
-// fetchWork().then((works) => {
-//   generateGalerie(works);
-// });
+  buttonObject.innerText = "Objets";
+  buttonObject.setAttribute("id", "btn-obj");
 
-// function generateGalerie(works) {
-//   console.log(works);
-//   let divGallery = document.querySelector(".gallery");
-//   divGallery.innerHTML = "";
-//   for (let i = 0; i < works.length; i++) {
-//     let figure = document.createElement("figure");
-//     let img = document.createElement("img");
-//     let figcaption = document.createElement("figcaption");
+  buttonAppart.innerText = "Appartements";
+  buttonAppart.setAttribute("id", "btn-appart");
 
-//     img.setAttribute("src", works[i].imgUrl);
-//     img.setAttribute("alt", works[i].title);
+  buttonHotelRestaurant.innerText = "Hôtels & restaurants";
+  buttonHotelRestaurant.setAttribute("id", "btn-hotel-restaurant");
 
-//     figcaption.innerText = works[i].title;
+  mesProjets.appendChild(divButton);
+  divButton.append(buttonAllProject);
+  divButton.appendChild(buttonObject);
+  divButton.appendChild(buttonAppart);
+  divButton.appendChild(buttonHotelRestaurant);
+}
 
-//     console.log(works[i].title);
-//   }
-// }
-
-// generateGalerie();
+function filterObjets(works) {
+  const btnObj = document.querySelector("#btn-obj");
+  btnObj.addEventListener("click", () => {
+    const objetsFilter = works.filter(
+      (works) => works.category.name === "Objets"
+    );
+    console.log(objetsFilter);
+  });
+}
