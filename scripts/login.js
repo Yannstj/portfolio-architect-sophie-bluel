@@ -42,7 +42,9 @@ async function postLoginRequest(chargeUtile) {
       body: chargeUtile,
     }
   );
-  gererPostRequest(loginRequestResponse);
+  const tokenID = await loginRequestResponse.json();
+  console.log(tokenID);
+  //gererPostRequest(loginRequestResponse.json());
 }
 
 // fonctions de gestion de la validité des inputs
@@ -74,19 +76,24 @@ function afficherMessageErreur(message) {
 // fonctions de gestion de la reponse serveur
 
 function gererPostRequest(response) {
-  // switch va tester si la valeur passer en paramètre === la valeur de case
-  // on a donc ici res.status = x (number) === x (number)
-  switch (response.status) {
-    case 200:
-      document.location.href = "index.html";
-      break;
-    case 401:
-      console.log("erreur 401");
-      break;
-    case 404:
-      console.log("erreur 404");
-      break;
-    default:
-      console.log("erreur interne");
-  }
+  console.log(response);
 }
+// switch va tester si la valeur passer en paramètre === la valeur de case
+// on a donc ici res.status = x (number) === x (number)
+//   switch (response.status) {
+//     case 200:
+//       //document.location.href = "index.html";
+//       console.log(response);
+//       break;
+//     case 401:
+//       console.log("erreur 401");
+//       break;
+//     case 404:
+//       console.log("erreur 404");
+//       break;
+//     default:
+//       console.log("erreur interne");
+//   }
+// }
+
+//utiliser window.sessionStorage
