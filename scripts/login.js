@@ -43,7 +43,12 @@ async function postLoginRequest(chargeUtile) {
     }
   );
   const tokenID = await loginRequestResponse.json();
-  console.log(tokenID);
+  console.log(loginRequestResponse.status); // 200 if ok
+  console.log(tokenID); // we need to save this in storage for maintain user loged
+  const valueToken = JSON.stringify(tokenID);
+  if (loginRequestResponse.status === 200) {
+    window.sessionStorage.setItem("token", valueToken);
+  }
   //gererPostRequest(loginRequestResponse.json());
 }
 
