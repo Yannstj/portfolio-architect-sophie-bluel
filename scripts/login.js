@@ -48,6 +48,7 @@ async function postLoginRequest(chargeUtile) {
   const valueToken = JSON.stringify(tokenID);
   if (loginRequestResponse.status === 200) {
     window.sessionStorage.setItem("token", valueToken);
+    document.location.href = "homepage_edit.html";
   }
   //gererPostRequest(loginRequestResponse.json());
 }
@@ -100,5 +101,3 @@ function gererPostRequest(response) {
 //       console.log("erreur interne");
 //   }
 // }
-
-//utiliser window.sessionStorage
