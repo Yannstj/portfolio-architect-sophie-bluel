@@ -263,27 +263,81 @@ footer nav ul {
   margin: 2em;
 }
 
+/* CSS dynamic filters button */
+.box-filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+
+  /*justify-content: center;*/
+}
+
+.btn-filters {
+  font-family: "Syne";
+  color: #1d6154;
+  background-color: white;
+  padding: 5px 12px;
+  border-radius: 15px;
+  border: solid 1px #1d6154;
+}
+
+.btn-filters:hover {
+  color: white;
+  background-color: #1d6154;
+}
+
 /* CSS login.html */
+
+.form {
+  display: flex;
+  justify-content: center;
+}
+/* .container {
+  display: flex;
+  justify-content: center;
+  border: solid 1px black;
+  width: 50%;
+} */
 
 .form-login {
   display: flex;
   flex-direction: column;
+  width: 40%;
 }
 
 .form-title {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 .container {
   display: flex;
   flex-direction: column;
 }
+.container input {
+  height: 30px;
+  border: none;
+  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.1));
+}
 
-.btn-submit {
+input[name="email"] {
+  margin-bottom: 22px;
+}
+
+.submit-container {
   display: flex;
   justify-content: center;
-  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.btn-submit {
+  color: white;
+  background-color: #1d6154;
+  padding: 6px 30px;
+  border-radius: 15px;
+  border: none;
 }
 
 .forgot-pwd {

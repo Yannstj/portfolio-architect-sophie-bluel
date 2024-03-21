@@ -40,6 +40,7 @@ async function postLoginRequest(chargeUtile) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: chargeUtile,
+      //Authorization: `Bearer ${token}` pour les fonctionnalité suivante
     }
   );
   const tokenID = await loginRequestResponse.json();

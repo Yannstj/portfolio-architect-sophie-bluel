@@ -30,6 +30,8 @@ function generateMenu() {
   const mesProjets = document.querySelector("#portfolio h2");
 
   const divButton = document.createElement("div");
+  divButton.setAttribute("class", "box-filters");
+
   const buttonAllProject = document.createElement("button");
   const buttonObject = document.createElement("button");
   const buttonAppart = document.createElement("button");
@@ -37,15 +39,19 @@ function generateMenu() {
 
   buttonAllProject.innerText = "Tous";
   buttonAllProject.setAttribute("id", "btn-all");
+  buttonAllProject.setAttribute("class", "btn-filters");
 
   buttonObject.innerText = "Objets";
   buttonObject.setAttribute("id", "btn-obj");
+  buttonObject.setAttribute("class", "btn-filters");
 
   buttonAppart.innerText = "Appartements";
   buttonAppart.setAttribute("id", "btn-appart");
+  buttonAppart.setAttribute("class", "btn-filters");
 
   buttonHotelRestaurant.innerText = "Hôtels & restaurants";
   buttonHotelRestaurant.setAttribute("id", "btn-hotel-restaurant");
+  buttonHotelRestaurant.setAttribute("class", "btn-filters");
 
   mesProjets.appendChild(divButton);
   divButton.append(buttonAllProject);
