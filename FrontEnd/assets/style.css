@@ -292,6 +292,8 @@ footer nav ul {
 .form {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 /* .container {
   display: flex;
@@ -303,21 +305,21 @@ footer nav ul {
 .form-login {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 25%;
 }
 
 .form-title {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 .container {
   display: flex;
   flex-direction: column;
 }
 .container input {
-  height: 30px;
+  height: 32px;
   border: none;
   filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.1));
 }
@@ -344,4 +346,9 @@ input[name="email"] {
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-bottom: 10px;
+}
+
+.forgot-pwd a {
+  color: #1d6154;
 }
