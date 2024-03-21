@@ -48,7 +48,9 @@ async function postLoginRequest(chargeUtile) {
   const valueToken = JSON.stringify(tokenID);
   if (loginRequestResponse.status === 200) {
     window.sessionStorage.setItem("token", valueToken);
-    document.location.href = "homepage_edit.html";
+    const token = window.sessionStorage.getItem("token");
+    //document.location.href = "homepage_edit.html";
+    console.log(token);
   }
   //gererPostRequest(loginRequestResponse.json());
 }
@@ -79,6 +81,7 @@ function afficherMessageErreur(message) {
   spanErreurMessage.innerText = message;
 }
 
+function verfierStorage() {}
 // fonctions de gestion de la reponse serveur
 
 function gererPostRequest(response) {
