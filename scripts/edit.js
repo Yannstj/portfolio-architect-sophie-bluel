@@ -9,7 +9,7 @@ export function gererEditPage() {
     const header = document.querySelector("body");
     const editHeader = document.createElement("div");
     editHeader.setAttribute("class", "editDiv");
-    editHeader.innerHTML = `<p>Mode édition</p>`;
+    editHeader.innerHTML = `<p> <i class="fa-regular fa-pen-to-square"></i>Mode édition</p>`;
     header.prepend(editHeader);
     //console.log(boxFilter);
   }
