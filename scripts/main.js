@@ -1,3 +1,5 @@
+// import
+import { gererEditPage } from "./edit.js";
 // Initialisation des variables
 let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
@@ -22,6 +24,7 @@ fetchWork().then((works) => {
 // Appel des fonction
 
 generateMenu();
+gererEditPage();
 
 // Creation des fonction
 

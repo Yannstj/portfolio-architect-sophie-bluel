@@ -50,8 +50,8 @@ async function postLoginRequest(chargeUtile) {
   if (loginRequestResponse.status === 200) {
     window.sessionStorage.setItem("token", valueToken);
     const token = window.sessionStorage.getItem("token");
-    //document.location.href = "homepage_edit.html";
-    console.log(token);
+    document.location.href = "index.html";
+    //console.log(token); dont work car redirected
   }
   //gererPostRequest(loginRequestResponse.json());
 }
