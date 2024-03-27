@@ -23,7 +23,6 @@ export function setModifierButton() {
   const modalAnchor = document.createElement("a");
   modalAnchor.setAttribute("href", "#modal1");
   modalAnchor.setAttribute("class", "js-modal");
-  //modalAnchor.innerText = "Hello";
   modalAnchor.innerHTML = `<i class="fa-regular fa-pen-to-square">modifier`;
   mesProjets.appendChild(modalSpan);
   modalSpan.appendChild(modalAnchor);
@@ -34,17 +33,57 @@ export function displayModal() {
   document.querySelectorAll(".js-modal").forEach((a) => {
     a.addEventListener("click", (event) => {
       event.preventDefault();
-      //console.log(event);
       // here we use current Target beacause if not we get icon tag
-      const target = document.querySelector(
-        event.currentTarget.getAttribute("href")
-      );
-      console.log(target);
-      target.style.display = null;
-      target.removeAttribute("arial-modal", "true");
-      target.setAttribute("aria-modal", "true");
+      modal = document.querySelector(event.currentTarget.getAttribute("href"));
+      modal.style.display = null;
+      modal.removeAttribute("arial-modal", "true");
+      modal.setAttribute("aria-modal", "true");
+      closeModal();
+      // modal
+      //   .querySelector(".js-close-modal")
+      //   .addEventListener("click", (event) => {
+      //     closeModal(modal);
+      //   });
+      // modal
+      //   .querySelector(".js-stop-modal")
+      //   .addEventListener("click", (event) => {
+      //     event.stopPropagation();
+      //   }); this dont work for some reason
     });
   });
 }
 
-//displayModal();
+function closeModal() {
+  modal.addEventListener("click", (event) => {
+    if (modal === null) return;
+
+    event.preventDefault();
+
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    modal.removeAttribute("aria-modal");
+
+    modal.removeEventListener("click", () => {
+      closeModal();
+    });
+    modal
+      .querySelector(".js-close-modal")
+      .removeEventListener("click", (event) => {
+        closeModal();
+      });
+    // modal
+    //   .querySelector(".js-stop-modal")
+    //   .removeEventListener("click", (event) => {
+    //     event.stopPropagation();
+    //   });
+    modal = null;
+    //console.log(modal);
+  });
+}
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" || event.key === "Esc") {
+    //console.log(event);
+    closeModal();
+  }
+});
