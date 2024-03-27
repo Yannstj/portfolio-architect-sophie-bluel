@@ -1,8 +1,9 @@
 // import
-import { gererEditPage } from "./edit.js";
+import { gererEditPage, setModifierButton, displayModal } from "./edit.js";
 // Initialisation des variables
 let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
+const token = window.sessionStorage.getItem("token");
 
 //Récuperation des travaux
 async function fetchWork() {
@@ -16,10 +17,12 @@ async function fetchWork() {
 // Traitements des data reçu
 fetchWork().then((works) => {
   generateGalerie(works);
-  allGalerie(works);
-  filterObjets(works);
-  filterAppartement(works);
-  filterHotelAndRestaurant(works);
+  if (token === null) {
+    allGalerie(works);
+    filterObjets(works);
+    filterAppartement(works);
+    filterHotelAndRestaurant(works);
+  }
 });
 // Appel des fonction
 
@@ -40,24 +43,25 @@ function generateMenu() {
   const buttonAppart = document.createElement("button");
   const buttonHotelRestaurant = document.createElement("button");
 
+  // Création du bouton tous
   buttonAllProject.innerText = "Tous";
   buttonAllProject.setAttribute("id", "btn-all");
   buttonAllProject.setAttribute("class", "btn-filters");
-
+  // Création du bouton objets
   buttonObject.innerText = "Objets";
   buttonObject.setAttribute("id", "btn-obj");
   buttonObject.setAttribute("class", "btn-filters");
-
+  // Création du bouton appartements
   buttonAppart.innerText = "Appartements";
   buttonAppart.setAttribute("id", "btn-appart");
   buttonAppart.setAttribute("class", "btn-filters");
-
+  // Création du bouton hotel et restaurants
   buttonHotelRestaurant.innerText = "Hôtels & restaurants";
   buttonHotelRestaurant.setAttribute("id", "btn-hotel-restaurant");
   buttonHotelRestaurant.setAttribute("class", "btn-filters");
 
-  mesProjets.appendChild(divButton);
-  divButton.append(buttonAllProject);
+  mesProjets.after(divButton);
+  divButton.appendChild(buttonAllProject);
   divButton.appendChild(buttonObject);
   divButton.appendChild(buttonAppart);
   divButton.appendChild(buttonHotelRestaurant);
@@ -86,6 +90,7 @@ function generateGalerie(works) {
 
 // Toutes la galerie
 function allGalerie(works) {
+  //console.log(token);
   document.querySelector("#btn-all").addEventListener("click", () => {
     generateGalerie(works);
   });
