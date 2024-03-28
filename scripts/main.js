@@ -1,5 +1,10 @@
 // import
-import { gererEditPage, setModifierButton, displayModal } from "./edit.js";
+import {
+  gererEditPage,
+  setModifierButton,
+  displayModal,
+  logOut,
+} from "./edit.js";
 // Initialisation des variables
 let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
@@ -15,19 +20,23 @@ async function fetchWork() {
   throw new Error("Erreur lors de la récuperation des données");
 }
 // Traitements des data reçu
-fetchWork().then((works) => {
-  generateGalerie(works);
-  if (token === null) {
-    allGalerie(works);
-    filterObjets(works);
-    filterAppartement(works);
-    filterHotelAndRestaurant(works);
-  }
-});
+function dataGestion() {
+  fetchWork().then((works) => {
+    generateGalerie(works);
+    if (token === null) {
+      allGalerie(works);
+      filterObjets(works);
+      filterAppartement(works);
+      filterHotelAndRestaurant(works);
+    }
+  });
+}
 // Appel des fonction
 
+dataGestion();
 generateMenu();
 gererEditPage();
+logOut();
 
 // Creation des fonction
 

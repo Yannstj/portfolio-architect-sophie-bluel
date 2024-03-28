@@ -38,7 +38,17 @@ export function displayModal() {
       modal.style.display = null;
       modal.removeAttribute("arial-modal", "true");
       modal.setAttribute("aria-modal", "true");
-      closeModal();
+      //closeModal();
+      // modal.addEventListener("click", (event) => {
+      //   closeModal();
+      // });
+      modal.addEventListener("click", closeModal);
+      window.addEventListener("keydown", (event) => {
+        //event.preventDefault();
+        if (event.key === "Escape" || event.key === "Esc") {
+          closeModal();
+        }
+      });
       // modal
       //   .querySelector(".js-close-modal")
       //   .addEventListener("click", (event) => {
@@ -54,36 +64,145 @@ export function displayModal() {
 }
 
 function closeModal() {
-  modal.addEventListener("click", (event) => {
-    if (modal === null) return;
+  //event.preventDefault();
+  if (modal === null) return;
 
-    event.preventDefault();
+  modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
+  modal.removeAttribute("aria-modal");
 
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-    modal.removeAttribute("aria-modal");
-
-    modal.removeEventListener("click", () => {
-      closeModal();
-    });
-    modal
-      .querySelector(".js-close-modal")
-      .removeEventListener("click", (event) => {
-        closeModal();
-      });
-    // modal
-    //   .querySelector(".js-stop-modal")
-    //   .removeEventListener("click", (event) => {
-    //     event.stopPropagation();
-    //   });
-    modal = null;
-    //console.log(modal);
-  });
+  // modal.removeEventListener("click", () => {
+  //   closeModal();
+  // });
+  // modal
+  //   .querySelector(".js-close-modal")
+  //   .removeEventListener("click", (event) => {
+  //     closeModal();
+  //   });
+  // modal
+  //   .querySelector(".js-stop-modal")
+  //   .removeEventListener("click", (event) => {
+  //     event.stopPropagation();
+  //   });
+  modal = null;
+  console.log("ok");
 }
 
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" || event.key === "Esc") {
-    //console.log(event);
-    closeModal();
+export function logOut() {
+  const token = window.sessionStorage.getItem("token");
+  if (token !== null) {
+    const loginAnchor = document.getElementById("loginAnchor");
+    loginAnchor.setAttribute("href", "#");
+    loginAnchor.innerHTML = "logout";
+    loginAnchor.addEventListener("click", (event) => {
+      window.sessionStorage.removeItem("token");
+      location.reload();
+      loginAnchor;
+      //console.log(token);
+      //dataGestion;
+    });
   }
-});
+}
+
+//generateLogOutButton();
+
+// export function logOut(anchor) {
+//   anchor.addEventListener("click", (event) => {
+//     let token = window.sessionStorage.getItem("token");
+//     console.log(token);
+//     token = null;
+//     dataGestion();
+//     //document.location.href = "index.html";
+//     //console.log(token);
+//   });
+// }
+
+// ---
+
+// export function displayModal() {
+//   document.querySelectorAll(".js-modal").forEach((a) => {
+//     a.addEventListener("click", (event) => {
+//       event.preventDefault();
+//       // here we use current Target beacause if not we get icon tag
+//       modal = document.querySelector(event.currentTarget.getAttribute("href"));
+//       modal.style.display = null;
+//       modal.removeAttribute("arial-modal", "true");
+//       modal.setAttribute("aria-modal", "true");
+//       closeModal();
+//       // modal
+//       //   .querySelector(".js-close-modal")
+//       //   .addEventListener("click", (event) => {
+//       //     closeModal(modal);
+//       //   });
+//       // modal
+//       //   .querySelector(".js-stop-modal")
+//       //   .addEventListener("click", (event) => {
+//       //     event.stopPropagation();
+//       //   }); this dont work for some reason
+//     });
+//   });
+// }
+
+// function closeModal() {
+//   console.log("ok");
+//   modal.addEventListener("click", (event) => {
+//     if (modal === null) return;
+
+//     event.preventDefault();
+
+//     modal.style.display = "none";
+//     modal.setAttribute("aria-hidden", "true");
+//     modal.removeAttribute("aria-modal");
+
+//     modal.removeEventListener("click", () => {
+//       closeModal();
+//     });
+//     modal
+//       .querySelector(".js-close-modal")
+//       .removeEventListener("click", (event) => {
+//         closeModal();
+//       });
+//     // modal
+//     //   .querySelector(".js-stop-modal")
+//     //   .removeEventListener("click", (event) => {
+//     //     event.stopPropagation();
+//     //   });
+//     modal = null;
+
+//     window.addEventListener("keydown", (event) => {
+//       if (event.key === "Escape" || event.key === "Esc") {
+//         //console.log(event);
+//         if (modal === null) return;
+
+//         event.preventDefault();
+
+//         modal.style.display = "none";
+//         modal.setAttribute("aria-hidden", "true");
+//         modal.removeAttribute("aria-modal");
+
+//         modal.removeEventListener("click", () => {
+//           closeModal();
+//         });
+//         modal
+//           .querySelector(".js-close-modal")
+//           .removeEventListener("click", (event) => {
+//             closeModal();
+//           });
+//         // modal
+//         //   .querySelector(".js-stop-modal")
+//         //   .removeEventListener("click", (event) => {
+//         //     event.stopPropagation();
+//         //   });
+//         modal = null;
+//         // console.log(modal);
+//       }
+//     });
+//     //console.log(modal);
+//   });
+// }
+
+// window.addEventListener("keydown", (event) => {
+//   if (event.key === "Escape" || event.key === "Esc") {
+//     console.log(event.key);
+//   }
+// });
