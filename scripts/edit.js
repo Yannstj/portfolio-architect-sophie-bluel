@@ -1,5 +1,18 @@
 // Init
 let modal = null;
+
+export function logOut() {
+  const token = window.sessionStorage.getItem("token");
+  if (token !== null) {
+    const loginAnchor = document.getElementById("loginAnchor");
+    loginAnchor.setAttribute("href", "#");
+    loginAnchor.innerHTML = "logout";
+    loginAnchor.addEventListener("click", (event) => {
+      window.sessionStorage.removeItem("token");
+      location.reload();
+    });
+  }
+}
 // async pour la modale
 export function gererEditPage() {
   const token = window.sessionStorage.getItem("token");
@@ -86,22 +99,6 @@ function closeModal() {
   //   });
   modal = null;
   console.log("ok");
-}
-
-export function logOut() {
-  const token = window.sessionStorage.getItem("token");
-  if (token !== null) {
-    const loginAnchor = document.getElementById("loginAnchor");
-    loginAnchor.setAttribute("href", "#");
-    loginAnchor.innerHTML = "logout";
-    loginAnchor.addEventListener("click", (event) => {
-      window.sessionStorage.removeItem("token");
-      location.reload();
-      loginAnchor;
-      //console.log(token);
-      //dataGestion;
-    });
-  }
 }
 
 //generateLogOutButton();
