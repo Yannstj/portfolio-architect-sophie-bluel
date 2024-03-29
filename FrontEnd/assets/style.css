@@ -392,8 +392,6 @@ input[name="email"] {
   overflow: auto; /* its tend to be remove just waiting resizing img*/
   width: 700px;
   height: 750px;
-  /* max-width: calc(100vw - 20px);
-  max-height: calc(100vh -20px); */
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
@@ -407,6 +405,25 @@ input[name="email"] {
   width: 600px;
   gap: 15px;
 }
+
+.trashIcon i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
+  color: #fff;
+  background-color: #000;
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+}
+
+/* 
+.imgContainer .fa-trash-can {
+  width: 20px;
+  background-color: #000;
+  color: #fff;
+} */
 .editImg {
   width: 100px;
 }

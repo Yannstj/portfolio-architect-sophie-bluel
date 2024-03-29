@@ -187,15 +187,21 @@ function editGalerie(works) {
   divGlobal.setAttribute("class", "globalImgContainer");
   titleModal.appendChild(divGlobal);
   for (let i = 0; i < works.length; i++) {
-    const div = document.createElement("div");
+    const divImg = document.createElement("div");
+    divImg.setAttribute("class", "imgContainer");
+    const divAnchor = document.createElement("div");
+    divAnchor.setAttribute("class", "trashIcon");
+    const anchor = document.createElement("a");
+    anchor.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
     const img = document.createElement("img");
     //const figcaption = document.createElement("figcaption");
     img.setAttribute("src", works[i].imageUrl);
     img.setAttribute("alt", works[i].title);
     img.setAttribute("class", "editImg");
 
-    divGlobal.appendChild(div);
-    div.appendChild(img);
-    //figure.appendChild(figcaption);
+    divGlobal.appendChild(divImg);
+    divImg.appendChild(divAnchor);
+    divAnchor.appendChild(anchor);
+    divAnchor.appendChild(img);
   }
 }
