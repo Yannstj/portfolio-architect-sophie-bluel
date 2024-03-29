@@ -17,10 +17,10 @@ export function logOut() {
 export function gererEditPage() {
   const token = window.sessionStorage.getItem("token");
   if (token !== null) {
-    // console.log(token);
+    // hide filters btn
     const boxFilter = document.querySelector(".box-filters");
-    //console.log(boxFilter);
     boxFilter.style.display = "none";
+    //
     const body = document.querySelector("body");
     const editHeader = document.createElement("div");
     editHeader.setAttribute("class", "editDiv");
@@ -40,79 +40,92 @@ export function setModifierButton() {
   mesProjets.appendChild(modalSpan);
   modalSpan.appendChild(modalAnchor);
   displayModal();
+  closeModal();
 }
 
 export function displayModal() {
-  document.querySelectorAll(".js-modal").forEach((a) => {
-    a.addEventListener("click", (event) => {
-      event.preventDefault();
-      // here we use current Target beacause if not we get icon tag
-      modal = document.querySelector(event.currentTarget.getAttribute("href"));
-      modal.style.display = null;
-      modal.removeAttribute("arial-modal", "true");
-      modal.setAttribute("aria-modal", "true");
-      //closeModal();
-      // modal.addEventListener("click", (event) => {
-      //   closeModal();
-      // });
-      modal.addEventListener("click", closeModal);
-      window.addEventListener("keydown", (event) => {
-        //event.preventDefault();
-        if (event.key === "Escape" || event.key === "Esc") {
-          closeModal();
-        }
-      });
-      // modal
-      //   .querySelector(".js-close-modal")
-      //   .addEventListener("click", (event) => {
-      //     closeModal(modal);
-      //   });
-      // modal
-      //   .querySelector(".js-stop-modal")
-      //   .addEventListener("click", (event) => {
-      //     event.stopPropagation();
-      //   }); this dont work for some reason
-    });
+  const modalLink = document.querySelector(".js-modal");
+  const dialog = document.querySelector("dialog");
+  modalLink.addEventListener("click", () => {
+    dialog.showModal();
   });
 }
 
-function closeModal() {
-  //event.preventDefault();
-  if (modal === null) return;
-
-  modal.style.display = "none";
-  modal.setAttribute("aria-hidden", "true");
-  modal.removeAttribute("aria-modal");
-
-  // modal.removeEventListener("click", () => {
-  //   closeModal();
-  // });
-  // modal
-  //   .querySelector(".js-close-modal")
-  //   .removeEventListener("click", (event) => {
-  //     closeModal();
-  //   });
-  // modal
-  //   .querySelector(".js-stop-modal")
-  //   .removeEventListener("click", (event) => {
-  //     event.stopPropagation();
-  //   });
-  modal = null;
-  console.log("ok");
+export function closeModal() {
+  const jsCloseModal = document.querySelector(".js-close-modal");
+  const dialog = document.querySelector("dialog");
+  jsCloseModal.addEventListener("click", () => {
+    dialog.close();
+  });
 }
 
-//generateLogOutButton();
-
-// export function logOut(anchor) {
-//   anchor.addEventListener("click", (event) => {
-//     let token = window.sessionStorage.getItem("token");
-//     console.log(token);
-//     token = null;
-//     dataGestion();
-//     //document.location.href = "index.html";
-//     //console.log(token);
+//       event.preventDefault();
+//       // here we use current Target beacause if not we get icon tag
+//       modal = document.querySelector(event.currentTarget.getAttribute("href"));
+//       modal.removeAttribute("arial-modal", "true");
+//       modal.setAttribute("aria-modal", "true");
+//       //closeModal();
+//       // modal.addEventListener("click", (event) => {
+//       //   closeModal();
+//       // });
+//       modal.addEventListener("click", closeModal);
+//       window.addEventListener("keydown", (event) => {
+//         //event.preventDefault();
+//         if (event.key === "Escape" || event.key === "Esc") {
+//           closeModal();
+//         }
+//       });
+//       // modal
+//       //   .querySelector(".js-close-modal")
+//       //   .addEventListener("click", (event) => {
+//       //     closeModal(modal);
+//       //   });
+//       // modal
+//       //   .querySelector(".js-stop-modal")
+//       //   .addEventListener("click", (event) => {
+//       //     event.stopPropagation();
+//       //   }); this dont work for some reason
+//     });
 //   });
 // }
+
+// function closeModal() {
+//   //event.preventDefault();
+//   if (modal === null) return;
+
+//   modal.style.display = "none";
+//   modal.setAttribute("aria-hidden", "true");
+//   modal.removeAttribute("aria-modal");
+
+//   // modal.removeEventListener("click", () => {
+//   //   closeModal();
+//   // });
+//   // modal
+//   //   .querySelector(".js-close-modal")
+//   //   .removeEventListener("click", (event) => {
+//   //     closeModal();
+//   //   });
+//   // modal
+//   //   .querySelector(".js-stop-modal")
+//   //   .removeEventListener("click", (event) => {
+//   //     event.stopPropagation();
+//   //   });
+//   modal = null;
+//   console.log("ok");
+// }
+
+// //generateLogOutButton();
+
+// // export function logOut(anchor) {
+// //   anchor.addEventListener("click", (event) => {
+// //     let token = window.sessionStorage.getItem("token");
+// //     console.log(token);
+// //     token = null;
+// //     dataGestion();
+// //     //document.location.href = "index.html";
+// //     //console.log(token);
+// //   });
+// // }
 
 // ---
 

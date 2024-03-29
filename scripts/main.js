@@ -1,8 +1,8 @@
 // import
 import {
   gererEditPage,
-  setModifierButton,
-  displayModal,
+  //setModifierButton,
+  //displayModal,
   logOut,
 } from "./edit.js";
 // Initialisation des variables
