@@ -20,7 +20,7 @@ export function gererEditPage() {
     // hide filters btn
     const boxFilter = document.querySelector(".box-filters");
     boxFilter.style.display = "none";
-    //
+    // add edit mode indication
     const body = document.querySelector("body");
     const editHeader = document.createElement("div");
     editHeader.setAttribute("class", "editDiv");
@@ -55,6 +55,7 @@ export function closeModal() {
   const jsCloseModal = document.querySelector(".js-close-modal");
   const dialog = document.querySelector("dialog");
   jsCloseModal.addEventListener("click", () => {
+    console.log("btn pressed");
     dialog.close();
   });
 }
