@@ -1,12 +1,7 @@
 // import
-import {
-  gererEditPage,
-  //setModifierButton,
-  //displayModal,
-  logOut,
-} from "./edit.js";
+import { gererEditPage, logOut } from "./edit.js";
 // Initialisation des variables
-let allProject = [];
+//export let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
 const token = window.sessionStorage.getItem("token");
 
@@ -23,12 +18,15 @@ async function fetchWork() {
 function dataGestion() {
   fetchWork().then((works) => {
     generateGalerie(works);
+    editGalerie(works);
+    //console.log(allProject);
     if (token === null) {
       allGalerie(works);
       filterObjets(works);
       filterAppartement(works);
       filterHotelAndRestaurant(works);
     }
+    return works;
   });
 }
 // Appel des fonction
@@ -79,7 +77,6 @@ function generateMenu() {
 // Affichage dynamique de la gallerie
 function generateGalerie(works) {
   const gallery = document.querySelector(".gallery");
-  console.log(works);
   gallery.innerHTML = "";
   for (let i = 0; i < works.length; i++) {
     const figure = document.createElement("figure");
@@ -132,7 +129,6 @@ function filterObjets(works) {
 }
 
 // Filtre appartements
-
 function filterAppartement(works) {
   const buttonAppart = document.querySelector("#btn-appart");
   buttonAppart.addEventListener("click", () => {
@@ -183,4 +179,23 @@ function filterHotelAndRestaurant(works) {
       figure.appendChild(figcaption);
     }
   });
+}
+
+function editGalerie(works) {
+  const titleModal = document.getElementById("titleModal");
+  const divGlobal = document.createElement("div");
+  divGlobal.setAttribute("class", "globalImgContainer");
+  titleModal.appendChild(divGlobal);
+  for (let i = 0; i < works.length; i++) {
+    const div = document.createElement("div");
+    const img = document.createElement("img");
+    //const figcaption = document.createElement("figcaption");
+    img.setAttribute("src", works[i].imageUrl);
+    img.setAttribute("alt", works[i].title);
+    img.setAttribute("class", "editImg");
+
+    divGlobal.appendChild(div);
+    div.appendChild(img);
+    //figure.appendChild(figcaption);
+  }
 }

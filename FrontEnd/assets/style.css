@@ -385,9 +385,28 @@ input[name="email"] {
 }
 
 .modal-wrapper {
-  width: 600px;
-  max-width: calc(100vw - 20px);
-  max-height: calc(100vh -20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: auto; /* its tend to be remove just waiting resizing img*/
+  width: 700px;
+  height: 750px;
+  /* max-width: calc(100vw - 20px);
+  max-height: calc(100vh -20px); */
   padding: 20px;
   background-color: #fff;
+  border-radius: 10px;
+}
+
+.globalImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 600px;
+  gap: 15px;
+}
+.editImg {
+  width: 100px;
 }
