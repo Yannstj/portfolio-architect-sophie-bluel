@@ -470,3 +470,14 @@ input[name="email"] {
 .separation {
   width: 70%;
 }
+
+#addBtn {
+  position: relative;
+  top: 30px;
+  font-family: "Syne";
+  color: #fff;
+  background-color: #1d6154;
+  border: none;
+  padding: 12px 62px;
+  border-radius: 20px;
+}

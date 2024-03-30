@@ -211,4 +211,10 @@ function editGalerie(works) {
   separation.setAttribute("class", "separation");
   divGlobal.after(p);
   p.appendChild(separation);
+
+  // creation du button pour ajouter une photo
+  const addButton = document.createElement("button");
+  addButton.setAttribute("id", "addBtn");
+  addButton.innerHTML = "Ajouter une photo";
+  p.after(addButton);
 }
