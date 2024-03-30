@@ -55,7 +55,6 @@ export function closeModal() {
   const jsCloseModal = document.querySelector(".js-close-modal");
   const dialog = document.querySelector("dialog");
   jsCloseModal.addEventListener("click", () => {
-    console.log("btn pressed");
     dialog.close();
   });
 }

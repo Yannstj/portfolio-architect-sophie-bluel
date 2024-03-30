@@ -391,22 +391,57 @@ input[name="email"] {
   align-items: center;
   overflow: auto; /* its tend to be remove just waiting resizing img*/
   width: 700px;
-  height: 750px;
+  height: 820px;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
 }
 
+.js-close-modal {
+  position: relative;
+  bottom: 92px;
+  left: 325px;
+  background-color: #fff;
+  border: none;
+}
+
+.js-close-modal i {
+  font-size: larger;
+}
+
+.titleModal {
+  position: relative;
+  bottom: 80px;
+}
+
+#titleModal {
+  font-family: "Work Sans";
+  letter-spacing: 0.1em;
+  font-weight: 100;
+  color: #000;
+}
+
 .globalImgContainer {
+  position: relative;
+  bottom: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  width: 600px;
+  width: 560px;
+  height: auto;
   gap: 15px;
 }
 
+.trashIcon {
+  width: 100%;
+}
+
 .trashIcon i {
+  /*Postion absolute a tester */
+  position: relative;
+  top: 28px;
+  left: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -426,4 +461,12 @@ input[name="email"] {
 } */
 .editImg {
   width: 100px;
+}
+
+.p-separation {
+  margin-top: 25px;
+  width: 100%;
+}
+.separation {
+  width: 70%;
 }

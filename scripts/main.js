@@ -182,10 +182,10 @@ function filterHotelAndRestaurant(works) {
 }
 
 function editGalerie(works) {
-  const titleModal = document.getElementById("titleModal");
+  const titleModal = document.querySelector(".titleModal");
   const divGlobal = document.createElement("div");
   divGlobal.setAttribute("class", "globalImgContainer");
-  titleModal.appendChild(divGlobal);
+  titleModal.after(divGlobal);
   for (let i = 0; i < works.length; i++) {
     const divImg = document.createElement("div");
     divImg.setAttribute("class", "imgContainer");
@@ -204,4 +204,11 @@ function editGalerie(works) {
     divAnchor.appendChild(anchor);
     divAnchor.appendChild(img);
   }
+  // creation de la separation
+  const p = document.createElement("p");
+  p.setAttribute("class", "p-separation");
+  const separation = document.createElement("hr");
+  separation.setAttribute("class", "separation");
+  divGlobal.after(p);
+  p.appendChild(separation);
 }
