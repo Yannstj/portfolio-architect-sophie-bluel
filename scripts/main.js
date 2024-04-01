@@ -1,5 +1,5 @@
 // import
-import { gererEditPage, logOut } from "./edit.js";
+import { gererEditPage, logOut, removeImage } from "./edit.js";
 // Initialisation des variables
 //export let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
@@ -194,9 +194,10 @@ function editGalerie(works) {
     const anchor = document.createElement("a");
     anchor.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
     const img = document.createElement("img");
-    //const figcaption = document.createElement("figcaption");
     img.setAttribute("src", works[i].imageUrl);
     img.setAttribute("alt", works[i].title);
+    // Set id for delete and put request
+    img.setAttribute("id", works[i].id);
     img.setAttribute("class", "editImg");
 
     divGlobal.appendChild(divImg);

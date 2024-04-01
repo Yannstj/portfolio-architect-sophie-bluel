@@ -373,6 +373,9 @@ input[name="email"] {
   margin-right: 8px;
 }
 
+.modal1 p {
+  font-family: "Work Sans";
+}
 /* CSS de la modal */
 /* if not on open selector close dosnt work properly */
 .modal[open] {
@@ -435,6 +438,10 @@ input[name="email"] {
 
 .trashIcon {
   width: 100%;
+}
+
+.trashIcon a {
+  height: auto;
 }
 
 .trashIcon i {

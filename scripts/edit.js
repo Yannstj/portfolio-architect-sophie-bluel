@@ -36,7 +36,7 @@ export function setModifierButton() {
   const modalAnchor = document.createElement("a");
   modalAnchor.setAttribute("href", "#modal1");
   modalAnchor.setAttribute("class", "js-modal");
-  modalAnchor.innerHTML = `<i class="fa-regular fa-pen-to-square">modifier`;
+  modalAnchor.innerHTML = `<div class="modal1"><p><i class="fa-regular fa-pen-to-square">modifier</i></p></div>`;
   mesProjets.appendChild(modalSpan);
   modalSpan.appendChild(modalAnchor);
   displayModal();
@@ -58,3 +58,16 @@ export function closeModal() {
     dialog.close();
   });
 }
+
+export async function removeImage() {
+  const trashIcon = document.querySelector(".js-close-modal i");
+  trashIcon.addEventListener("click", (event) => {
+    console.log(event);
+    console.log("hello");
+    // const imageId = document.querySelector(".editImg");
+    // console.log(imageId);
+    //const deleteResponse = await fetch("http://localhost:5678/api/works")
+  });
+}
+
+removeImage();
