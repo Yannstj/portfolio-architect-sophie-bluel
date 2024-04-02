@@ -61,6 +61,7 @@ export function closeModal() {
 
 export function removeImage() {
   document.addEventListener("click", (event) => {
+    event.preventDefault();
     // here we use closest methodes because queryselector doesnt work on i tag
     const trashIcon = event.target.closest(".fa-trash-can");
     const imgSelected = event.target.closest(".trashIcon");
@@ -68,10 +69,10 @@ export function removeImage() {
       const img = imgSelected.querySelector("img");
       const imgID = img.getAttribute("id");
       console.log(imgID);
-      async function remove() {
+      async function removeSelectedImg() {
         let token = window.sessionStorage.getItem("token");
+        // permet de recuperer le token au bon format
         token = JSON.parse(token).token;
-        // test ok we have removed id 5 in bdd
         const deleteRequest = await fetch(
           `http://localhost:5678/api/works/${imgID}`,
           {
@@ -81,9 +82,10 @@ export function removeImage() {
         );
         if (deleteRequest.ok) {
           console.log("hello");
+          imgSelected.remove();
         }
       }
-      remove();
+      removeSelectedImg();
     }
   });
 }

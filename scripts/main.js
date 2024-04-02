@@ -3,8 +3,6 @@ import { gererEditPage, logOut, removeImage } from "./edit.js";
 // Initialisation des variables
 //export let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
-const token = window.sessionStorage.getItem("token");
-console.log(JSON.parse(token).token);
 
 //Récuperation des travaux
 async function fetchWork() {
@@ -17,6 +15,7 @@ async function fetchWork() {
 }
 // Traitements des data reçu
 function dataGestion() {
+  const token = window.sessionStorage.getItem("token");
   fetchWork().then((works) => {
     generateGalerie(works);
     editGalerie(works);
