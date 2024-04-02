@@ -1,5 +1,4 @@
 // Init
-let modal = null;
 
 export function logOut() {
   const token = window.sessionStorage.getItem("token");
@@ -69,6 +68,22 @@ export function removeImage() {
       const img = imgSelected.querySelector("img");
       const imgID = img.getAttribute("id");
       console.log(imgID);
+      async function remove() {
+        let token = window.sessionStorage.getItem("token");
+        token = JSON.parse(token).token;
+        // test ok we have removed id 5 in bdd
+        const deleteRequest = await fetch(
+          `http://localhost:5678/api/works/${imgID}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            method: "DELETE",
+          }
+        );
+        if (deleteRequest.ok) {
+          console.log("hello");
+        }
+      }
+      remove();
     }
   });
 }

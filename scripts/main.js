@@ -4,6 +4,7 @@ import { gererEditPage, logOut, removeImage } from "./edit.js";
 //export let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
 const token = window.sessionStorage.getItem("token");
+console.log(JSON.parse(token).token);
 
 //Récuperation des travaux
 async function fetchWork() {
