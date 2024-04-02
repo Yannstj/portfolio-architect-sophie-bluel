@@ -373,8 +373,22 @@ input[name="email"] {
   margin-right: 8px;
 }
 
+.modal1 {
+  position: relative;
+  left: 650px;
+  bottom: 51px;
+}
+
+.fa-pen-to-square {
+  color: #000;
+}
+
 .modal1 p {
   font-family: "Work Sans";
+  text-decoration: none;
+  color: #000;
+  display: inline;
+  padding-left: 10px;
 }
 /* CSS de la modal */
 /* if not on open selector close dosnt work properly */
@@ -392,7 +406,6 @@ input[name="email"] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: auto; /* its tend to be remove just waiting resizing img*/
   width: 700px;
   height: 820px;
   padding: 20px;

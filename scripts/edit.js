@@ -32,13 +32,14 @@ export function gererEditPage() {
 
 export function setModifierButton() {
   const mesProjets = document.querySelector("#portfolio h2");
-  const modalSpan = document.createElement("span");
+  const modalDiv = document.createElement("div");
+  modalDiv.setAttribute("class", "modal1");
   const modalAnchor = document.createElement("a");
   modalAnchor.setAttribute("href", "#modal1");
   modalAnchor.setAttribute("class", "js-modal");
-  modalAnchor.innerHTML = `<div class="modal1"><p><i class="fa-regular fa-pen-to-square">modifier</i></p></div>`;
-  mesProjets.appendChild(modalSpan);
-  modalSpan.appendChild(modalAnchor);
+  modalAnchor.innerHTML = `<i class="fa-regular fa-pen-to-square"><p>modifier</p></i>`;
+  mesProjets.after(modalDiv);
+  modalDiv.appendChild(modalAnchor);
   displayModal();
   closeModal();
 }
