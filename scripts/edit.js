@@ -32,14 +32,14 @@ export function gererEditPage() {
 
 export function setModifierButton() {
   const mesProjets = document.querySelector("#portfolio h2");
-  const modalDiv = document.createElement("div");
-  modalDiv.setAttribute("class", "modal1");
+  const modalSpan = document.createElement("span");
+  modalSpan.setAttribute("class", "modal1");
   const modalAnchor = document.createElement("a");
   modalAnchor.setAttribute("href", "#modal1");
   modalAnchor.setAttribute("class", "js-modal");
   modalAnchor.innerHTML = `<i class="fa-regular fa-pen-to-square"><p>modifier</p></i>`;
-  mesProjets.after(modalDiv);
-  modalDiv.appendChild(modalAnchor);
+  mesProjets.appendChild(modalSpan);
+  modalSpan.appendChild(modalAnchor);
   displayModal();
   closeModal();
 }
@@ -60,15 +60,15 @@ export function closeModal() {
   });
 }
 
-export async function removeImage() {
-  const trashIcon = document.querySelector(".js-close-modal i");
-  trashIcon.addEventListener("click", (event) => {
-    console.log(event);
-    console.log("hello");
-    // const imageId = document.querySelector(".editImg");
-    // console.log(imageId);
-    //const deleteResponse = await fetch("http://localhost:5678/api/works")
+export function removeImage() {
+  document.addEventListener("click", (event) => {
+    // here we use closest methodes because queryselector doesnt work on i tag
+    const trashIcon = event.target.closest(".fa-trash-can");
+    const imgSelected = event.target.closest(".trashIcon");
+    if (trashIcon !== null) {
+      const img = imgSelected.querySelector("img");
+      const imgID = img.getAttribute("id");
+      console.log(imgID);
+    }
   });
 }
-
-removeImage();

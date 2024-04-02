@@ -373,13 +373,22 @@ input[name="email"] {
   margin-right: 8px;
 }
 
+#portfolio h2 {
+  /* position: relative;*/
+}
+
 .modal1 {
-  position: relative;
-  left: 650px;
-  bottom: 51px;
+  display: inline-block;
+
+  /* display: flex;
+  flex-direction: column;
+  position: relative; 
+  left: 690px;
+  bottom: 51px;*/
 }
 
 .fa-pen-to-square {
+  font-size: medium;
   color: #000;
 }
 
@@ -454,7 +463,6 @@ input[name="email"] {
 }
 
 .trashIcon a {
-  height: auto;
 }
 
 .trashIcon i {

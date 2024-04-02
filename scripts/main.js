@@ -218,4 +218,7 @@ function editGalerie(works) {
   addButton.setAttribute("id", "addBtn");
   addButton.innerHTML = "Ajouter une photo";
   p.after(addButton);
+
+  //supprimer un projet (fonction importer de edit js)
+  removeImage();
 }
