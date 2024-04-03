@@ -36,7 +36,7 @@ export function setModifierButton() {
   const modalAnchor = document.createElement("a");
   modalAnchor.setAttribute("href", "#modal1");
   modalAnchor.setAttribute("class", "js-modal");
-  modalAnchor.innerHTML = `<i class="fa-regular fa-pen-to-square"><p>modifier</p></i>`;
+  modalAnchor.innerHTML = `<i class="fa-regular fa-pen-to-square" id="penTwo"><p>modifier</p></i>`;
   mesProjets.appendChild(modalSpan);
   modalSpan.appendChild(modalAnchor);
   displayModal();
@@ -61,7 +61,7 @@ export function closeModal() {
 
 export function removeImage() {
   document.addEventListener("click", (event) => {
-    event.preventDefault();
+    //event.preventDefault(); this line cause a bug
     // here we use closest methodes because queryselector doesnt work on i tag
     const trashIcon = event.target.closest(".fa-trash-can");
     const imgSelected = event.target.closest(".trashIcon");
@@ -81,11 +81,19 @@ export function removeImage() {
           }
         );
         if (deleteRequest.ok) {
-          console.log("hello");
+          // premet de voir l'image ce supprimer sur la modal, mais la ferme quand même
           imgSelected.remove();
         }
       }
       removeSelectedImg();
     }
+  });
+}
+
+export function displayModal2(addButton) {
+  const modal2Anchor = document.querySelector(".modal2");
+  addButton.addEventListener("click", () => {
+    modal2Anchor.showModal();
+    //console.log("hello");
   });
 }

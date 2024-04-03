@@ -1,5 +1,5 @@
 // import
-import { gererEditPage, logOut, removeImage } from "./edit.js";
+import { displayModal2, gererEditPage, logOut, removeImage } from "./edit.js";
 // Initialisation des variables
 //export let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
@@ -15,7 +15,7 @@ async function fetchWork() {
 }
 // Traitements des data reçu
 function dataGestion() {
-  const token = window.sessionStorage.getItem("token");
+  let token = window.sessionStorage.getItem("token");
   fetchWork().then((works) => {
     generateGalerie(works);
     editGalerie(works);
@@ -221,4 +221,6 @@ function editGalerie(works) {
 
   //supprimer un projet (fonction importer de edit js)
   removeImage();
+  // Ouvrir la 2eme modal
+  displayModal2(addButton);
 }
