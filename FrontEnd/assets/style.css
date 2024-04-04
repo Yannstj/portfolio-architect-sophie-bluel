@@ -509,3 +509,112 @@ input[name="email"] {
   padding: 12px 62px;
   border-radius: 20px;
 }
+
+/* CSS modal number 2 */
+
+.modal2[open] {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* if modal one is open background is already set so a is set to 0 */
+  background: rgba(0, 0, 0, 0);
+}
+
+.titleModal2 {
+  position: relative;
+  bottom: 80px;
+}
+
+#titleModal2 {
+  font-family: "Work Sans";
+  letter-spacing: 0.1em;
+  font-weight: 100;
+  color: #000;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  height: 600px;
+  /* border: #000 solid 1px; */
+}
+
+.addContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #e8f1f6;
+  border-radius: 5px;
+  padding-top: 22px;
+  margin-bottom: 35px;
+}
+
+/* last element in the div */
+.addContainer p {
+  padding: 12px 0px;
+  font-size: smaller;
+  color: #444444;
+}
+
+.divIcon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.fa-image {
+  font-size: 5em;
+  color: #b9c5cc;
+}
+.divIcon i {
+}
+
+.photoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #cbd6dc;
+  border-radius: 24px;
+  width: 200px;
+  padding-top: 16px;
+}
+
+.photoContainer label {
+  color: #306685;
+}
+.addPhoto {
+  width: 100%;
+}
+.formContainer input {
+  opacity: 0;
+}
+
+.labelTitle {
+  display: block;
+  font-size: medium;
+}
+
+#title {
+  /* because we set 0 for photo container */
+  opacity: 1;
+  border: #000 solid 1px;
+  width: 100%;
+  height: 40px;
+  margin-bottom: 30px;
+}
+
+.labelCategorie {
+  display: block;
+  font-size: medium;
+}
+
+#categorie {
+  width: 100%;
+  height: 40px;
+}

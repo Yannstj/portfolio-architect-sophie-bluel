@@ -223,4 +223,70 @@ function editGalerie(works) {
   removeImage();
   // Ouvrir la 2eme modal
   displayModal2(addButton);
+  // construction de la 2ème modal
+  const titleModal2 = document.querySelector(".titleModal2");
+  // init formulaire
+  const div = document.createElement("div");
+  div.setAttribute("class", "formContainer");
+  const divAddContainer = document.createElement("div");
+  divAddContainer.setAttribute("class", "addContainer");
+  const divIcon = document.createElement("div");
+  divIcon.setAttribute("class", "divIcon");
+  divIcon.innerHTML = `<i class="fa-regular fa-image"></i>`;
+  const divAddPhoto = document.createElement("div");
+  divAddPhoto.setAttribute("class", "photoContainer");
+  //init form
+  const form = document.createElement("form");
+  form.setAttribute("method", "post");
+  form.setAttribute("class", "addPhoto");
+  // init label
+  const label = document.createElement("label");
+  label.setAttribute("for", "file");
+  label.innerText = " + Ajouter une photo";
+  //init button
+  const globalBtn = document.createElement("button");
+  globalBtn.setAttribute("class", "globalBtn");
+  //init p
+  // init input type file
+  const addImage = document.createElement("input");
+  addImage.setAttribute("type", "file");
+  addImage.setAttribute("id", "file");
+  addImage.setAttribute("name", "file");
+  // description
+  const pTag = document.createElement("p");
+  pTag.innerText = "jpg, png : 4mo max";
+  // add to DOM
+  titleModal2.after(div);
+  div.appendChild(form);
+  form.appendChild(divAddContainer);
+  divAddContainer.appendChild(divIcon);
+  divAddContainer.appendChild(divAddPhoto);
+  divAddPhoto.appendChild(label);
+  divAddPhoto.appendChild(addImage);
+  divAddContainer.appendChild(pTag);
+  // Init Titre & Catégorie Inputs
+
+  const labelTitle = document.createElement("label");
+  labelTitle.setAttribute("for", "title");
+  labelTitle.setAttribute("class", "labelTitle");
+  labelTitle.innerText = "Titre";
+  const inputTitle = document.createElement("input");
+  inputTitle.setAttribute("type", "text");
+  inputTitle.setAttribute("id", "title");
+  inputTitle.setAttribute("name", "text");
+
+  form.appendChild(labelTitle);
+  form.appendChild(inputTitle);
+
+  const labelCategorie = document.createElement("label");
+  labelCategorie.setAttribute("for", "categorie");
+  labelCategorie.setAttribute("class", "labelCategorie");
+  labelCategorie.innerText = "Catégorie";
+  const inputCategorie = document.createElement("select");
+  //inputCategorie.setAttribute("type", "text");
+  inputCategorie.setAttribute("id", "categorie");
+  inputCategorie.setAttribute("name", "categorie");
+
+  form.appendChild(labelCategorie);
+  form.appendChild(inputCategorie);
 }
