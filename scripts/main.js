@@ -7,9 +7,12 @@ const response = await fetch("http://localhost:5678/api/works");
 //Récuperation des travaux
 async function fetchWork() {
   if (response.ok) {
+    // here we clone the response because we reused response.json()
+    // on fetch categorie function
+    let res = response.clone();
     // without return, we log the error to
     // response.json() return a promise
-    return response.json();
+    return res.json();
   }
   throw new Error("Erreur lors de la récuperation des données");
 }
@@ -181,6 +184,20 @@ function filterHotelAndRestaurant(works) {
   });
 }
 
+// Fetch all Categories
+async function fetchCategorie() {
+  // Attention l'autre constante response est une variable global
+  const response = await fetch("http://localhost:5678/api/categories");
+  if (response.ok) {
+    // without return, we log the error to
+    // response.json() return a promise that can be cousume only once
+    console.log(response);
+    return response.json();
+  }
+  throw new Error("Erreur lors de la récuperation des données");
+}
+
+// We need to fetch all categories for editing galerie
 function editGalerie(works) {
   const titleModal = document.querySelector(".titleModal");
   const divGlobal = document.createElement("div");
@@ -273,7 +290,7 @@ function editGalerie(works) {
   const inputTitle = document.createElement("input");
   inputTitle.setAttribute("type", "text");
   inputTitle.setAttribute("id", "title");
-  inputTitle.setAttribute("name", "text");
+  inputTitle.setAttribute("name", "title");
 
   form.appendChild(labelTitle);
   form.appendChild(inputTitle);
@@ -282,11 +299,17 @@ function editGalerie(works) {
   labelCategorie.setAttribute("for", "categorie");
   labelCategorie.setAttribute("class", "labelCategorie");
   labelCategorie.innerText = "Catégorie";
+
   const inputCategorie = document.createElement("select");
-  //inputCategorie.setAttribute("type", "text");
   inputCategorie.setAttribute("id", "categorie");
   inputCategorie.setAttribute("name", "categorie");
 
   form.appendChild(labelCategorie);
   form.appendChild(inputCategorie);
+
+  fetchCategorie().then((category) => {
+    console.log(category);
+  });
+
+  // Generer les options dynamiquement grace au fetchCategorie
 }
