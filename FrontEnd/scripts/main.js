@@ -17,6 +17,9 @@ async function fetchWork() {
   throw new Error("Erreur lors de la récuperation des données");
 }
 // Traitements des data reçu
+/**
+ *
+ */
 function dataGestion() {
   let token = window.sessionStorage.getItem("token");
   fetchWork().then((works) => {
@@ -98,6 +101,10 @@ function generateGalerie(works) {
 /// FILTRE ///
 
 // Toutes la galerie
+/**
+ *
+ * @param {*} works
+ */
 function allGalerie(works) {
   //console.log(token);
   document.querySelector("#btn-all").addEventListener("click", () => {
@@ -191,7 +198,6 @@ async function fetchCategorie() {
   if (response.ok) {
     // without return, we log the error to
     // response.json() return a promise that can be cousume only once
-    console.log(response);
     return response.json();
   }
   throw new Error("Erreur lors de la récuperation des données");
@@ -221,6 +227,17 @@ function editGalerie(works) {
     divImg.appendChild(divAnchor);
     divAnchor.appendChild(anchor);
     divAnchor.appendChild(img);
+    //complted
+    anchor.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (
+        confirm(
+          "Voulez-vous vraiment supprimer ce projet ?\nCette action est irréversible."
+        )
+      ) {
+        removeImage(works[i].id);
+      }
+    });
   }
   // creation de la separation
   const p = document.createElement("p");
@@ -237,7 +254,8 @@ function editGalerie(works) {
   p.after(addButton);
 
   //supprimer un projet (fonction importer de edit js)
-  removeImage();
+  //removeImage();
+
   // Ouvrir la 2eme modal
   displayModal2(addButton);
   // construction de la 2ème modal
@@ -307,9 +325,25 @@ function editGalerie(works) {
   form.appendChild(labelCategorie);
   form.appendChild(inputCategorie);
 
+  // Generer les options dynamiquement grace au fetchCategorie
   fetchCategorie().then((category) => {
     console.log(category);
+    for (let i = 0; i < category.length; i++) {
+      const option = document.createElement("option");
+      option.setAttribute("value", `${category[i].name}`);
+      option.innerText = `${category[i].name}`;
+      //console.log(option); good
+      inputCategorie.appendChild(option);
+    }
   });
 
-  // Generer les options dynamiquement grace au fetchCategorie
+  const separationModal2 = document.createElement("hr");
+  separationModal2.setAttribute("class", "separation");
+  inputCategorie.after(separationModal2);
+
+  // creation du button de Validation
+  const validationButton = document.createElement("button");
+  validationButton.setAttribute("id", "validateBtn");
+  validationButton.innerHTML = "Valider";
+  separationModal2.after(validationButton);
 }

@@ -43,6 +43,15 @@ export function setModifierButton() {
   closeModal();
 }
 
+// const myButton = document.getElementById('myButton');
+// myButton.addEventListener('click', () => myDialog.showModal());
+
+// const myDialog = document.getElementById('myDialog');
+// myDialog.addEventListener('click', () => myDialog.close());
+
+// const myDiv = document.getElementById('myDiv');
+// myDiv.addEventListener('click', (event) => event.stopPropagation());
+
 export function displayModal() {
   const modalLink = document.querySelector(".js-modal");
   const dialog = document.querySelector("dialog");
@@ -59,9 +68,23 @@ export function closeModal() {
   });
 }
 
+export function closeModalOutside() {
+  const modal = document.querySelector(".modal");
+  const modal2 = document.querySelector(".modal2");
+  modal.addEventListener("click", () => modal.close());
+  modal2.addEventListener("click", () => {
+    modal2.close();
+    modal.close();
+  });
+
+  const modalWrapper = document.querySelector(".modal-wrapper");
+  modalWrapper.addEventListener("click", (event) => event.stopPropagation());
+}
+closeModalOutside();
+
 export function removeImage() {
   document.addEventListener("click", (event) => {
-    //event.preventDefault(); this line cause a bug
+    event.preventDefault(); //this line cause a bug
     // here we use closest methodes because queryselector doesnt work on i tag
     const trashIcon = event.target.closest(".fa-trash-can");
     const imgSelected = event.target.closest(".trashIcon");

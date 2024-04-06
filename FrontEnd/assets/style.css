@@ -624,3 +624,14 @@ input[name="email"] {
   color: #444444;
   font-family: "Work Sans";
 }
+
+#validateBtn {
+  position: relative;
+  top: 30px;
+  font-family: "Syne";
+  color: #fff;
+  background-color: #1d6154;
+  border: none;
+  padding: 12px 62px;
+  border-radius: 20px;
+}
