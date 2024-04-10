@@ -17,9 +17,6 @@ async function fetchWork() {
   throw new Error("Erreur lors de la récuperation des données");
 }
 // Traitements des data reçu
-/**
- *
- */
 function dataGestion() {
   let token = window.sessionStorage.getItem("token");
   fetchWork().then((works) => {
@@ -287,9 +284,17 @@ function editGalerie(works) {
   addImage.setAttribute("type", "file");
   addImage.setAttribute("id", "file");
   addImage.setAttribute("name", "file");
+  addImage.setAttribute("accept", "image/*");
+  //img tag for preview
+  const imgPreview = document.createElement("img");
+  imgPreview.setAttribute("id", "preview");
   // description
   const pTag = document.createElement("p");
   pTag.innerText = "jpg, png : 4mo max";
+
+  addImage.addEventListener("change", () => {
+    previewImage();
+  });
   // add to DOM
   titleModal2.after(div);
   div.appendChild(form);
@@ -298,6 +303,7 @@ function editGalerie(works) {
   divAddContainer.appendChild(divAddPhoto);
   divAddPhoto.appendChild(label);
   divAddPhoto.appendChild(addImage);
+  divAddPhoto.after(imgPreview);
   divAddContainer.appendChild(pTag);
   // Init Titre & Catégorie Inputs
 
@@ -337,13 +343,45 @@ function editGalerie(works) {
     }
   });
 
+  const pModal2 = document.createElement("p");
+  pModal2.setAttribute("class", "p-separation2");
   const separationModal2 = document.createElement("hr");
-  separationModal2.setAttribute("class", "separation");
-  inputCategorie.after(separationModal2);
+  separationModal2.setAttribute("class", "separation2");
+  inputCategorie.after(pModal2);
+  pModal2.appendChild(separationModal2);
 
   // creation du button de Validation
+  const divValidation = document.createElement("div");
+  divValidation.setAttribute("class", "validate");
   const validationButton = document.createElement("button");
   validationButton.setAttribute("id", "validateBtn");
   validationButton.innerHTML = "Valider";
-  separationModal2.after(validationButton);
+  pModal2.after(divValidation);
+  divValidation.appendChild(validationButton);
+
+  const formAction = document.querySelector(".addPhoto");
+
+  formAction.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+
+  validationButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    console.log("hello world");
+  });
+}
+
+function previewImage() {
+  const file = document.getElementById("file").files;
+  if (file.length > 0) {
+    let fileReader = new FileReader();
+    fileReader.onload = (event) => {
+      document
+        .getElementById("preview")
+        .setAttribute("src", event.target.result);
+    };
+    fileReader.readAsDataURL(file[0]);
+    const photoContainer = document.querySelector(".photoContainer");
+    photoContainer.style.backgroundColor = "#e8f1f6";
+  }
 }

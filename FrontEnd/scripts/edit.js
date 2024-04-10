@@ -61,26 +61,48 @@ export function displayModal() {
 }
 
 export function closeModal() {
+  const dialog1 = document.querySelector(".modal");
+  const dialog2 = document.querySelector(".modal2");
+
   const jsCloseModal = document.querySelector(".js-close-modal");
-  const dialog = document.querySelector("dialog");
   jsCloseModal.addEventListener("click", () => {
-    dialog.close();
+    dialog1.close();
+  });
+  const jsCloseModal2 = document.querySelector(".js-close-modal2");
+  jsCloseModal2.addEventListener("click", () => {
+    dialog1.close();
+    dialog2.close();
   });
 }
 
 export function closeModalOutside() {
   const modal = document.querySelector(".modal");
   const modal2 = document.querySelector(".modal2");
-  modal.addEventListener("click", () => modal.close());
-  modal2.addEventListener("click", () => {
-    modal2.close();
+  const modalWrapper = document.querySelector(".modal-wrapper");
+  const modalWrapper2 = document.querySelector(".modal-wrapper2");
+  modal.addEventListener("click", () => {
     modal.close();
   });
-
-  const modalWrapper = document.querySelector(".modal-wrapper");
-  modalWrapper.addEventListener("click", (event) => event.stopPropagation());
+  modal2.addEventListener("click", () => {
+    modal.close();
+    modal2.close();
+  });
+  modalWrapper.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+  modalWrapper2.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
 }
 closeModalOutside();
+
+export function returnModal2() {
+  const returnArrow = document.querySelector(".js-return");
+  const dialog2 = document.querySelector(".modal2");
+  returnArrow.addEventListener("click", () => {
+    dialog2.close();
+  });
+}
 
 export function removeImage() {
   document.addEventListener("click", (event) => {
@@ -114,9 +136,11 @@ export function removeImage() {
 }
 
 export function displayModal2(addButton) {
+  //const modal = document.querySelector(".modal");
   const modal2Anchor = document.querySelector(".modal2");
   addButton.addEventListener("click", () => {
     modal2Anchor.showModal();
     //console.log("hello");
   });
+  returnModal2();
 }
