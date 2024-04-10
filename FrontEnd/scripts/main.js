@@ -225,16 +225,6 @@ function editGalerie(works) {
     divAnchor.appendChild(anchor);
     divAnchor.appendChild(img);
     //complted
-    anchor.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (
-        confirm(
-          "Voulez-vous vraiment supprimer ce projet ?\nCette action est irréversible."
-        )
-      ) {
-        removeImage(works[i].id);
-      }
-    });
   }
   // creation de la separation
   const p = document.createElement("p");
@@ -251,7 +241,7 @@ function editGalerie(works) {
   p.after(addButton);
 
   //supprimer un projet (fonction importer de edit js)
-  //removeImage();
+  removeImage();
 
   // Ouvrir la 2eme modal
   displayModal2(addButton);
@@ -366,7 +356,6 @@ function editGalerie(works) {
   });
 
   validationButton.addEventListener("click", (event) => {
-    event.preventDefault();
     console.log("hello world");
   });
 }
