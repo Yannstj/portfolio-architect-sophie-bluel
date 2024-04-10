@@ -58,11 +58,15 @@ export function closeModal() {
   const jsCloseModal = document.querySelector(".js-close-modal");
   jsCloseModal.addEventListener("click", () => {
     dialog1.close();
+    // refresh page when done
+    location.reload();
   });
   const jsCloseModal2 = document.querySelector(".js-close-modal2");
   jsCloseModal2.addEventListener("click", () => {
     dialog1.close();
     dialog2.close();
+    // refresh page when done
+    location.reload();
   });
 }
 
