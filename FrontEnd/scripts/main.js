@@ -328,7 +328,7 @@ function editGalerie(works) {
       const option = document.createElement("option");
       option.setAttribute("value", `${category[i].name}`);
       option.innerText = `${category[i].name}`;
-      //console.log(option); good
+      option.setAttribute("id", `${category[i].id}`);
       inputCategorie.appendChild(option);
     }
   });
@@ -353,10 +353,7 @@ function editGalerie(works) {
 
   formAction.addEventListener("submit", (event) => {
     event.preventDefault();
-  });
-
-  validationButton.addEventListener("click", (event) => {
-    console.log("hello world");
+    addImageToBackend();
   });
 }
 
@@ -373,4 +370,44 @@ function previewImage() {
     const photoContainer = document.querySelector(".photoContainer");
     photoContainer.style.backgroundColor = "#e8f1f6";
   }
+}
+
+function addImageToBackend() {
+  const validationButton = document.querySelector("#validateBtn");
+  validationButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    const img = document.getElementById("preview");
+    const titre = document.getElementById("title");
+    const categorie = document.getElementById("categorie");
+
+    const formData = new FormData();
+
+    formData.append("title", titre.value);
+    formData.append("imgUrl", img.src);
+    formData.append(
+      "categoryId",
+      categorie.options[categorie.selectedIndex].id
+    );
+
+    async function updateDatabase() {
+      let token = window.sessionStorage.getItem("token");
+      token = JSON.parse(token).token;
+      const update = await fetch(`http://localhost:5678/api/works`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: formData,
+      });
+    }
+
+    updateDatabase();
+
+    // console.log(formData.entries);
+
+    // console.log(img.src);
+    // console.log(titre.value);
+    // console.log(categorie.options[categorie.selectedIndex].id);
+  });
 }
