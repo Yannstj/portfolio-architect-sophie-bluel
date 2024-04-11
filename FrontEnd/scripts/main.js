@@ -376,7 +376,7 @@ function addImageToBackend() {
   const validationButton = document.querySelector("#validateBtn");
   validationButton.addEventListener("click", (event) => {
     event.preventDefault();
-    //const img = document.getElementById("preview");
+
     const file = document.getElementById("file").files;
 
     const titre = document.getElementById("title");
@@ -385,12 +385,12 @@ function addImageToBackend() {
     const img = file[0].name;
 
     //parseInt(categorieID);
-    console.log(categorieID);
+    //console.log(categorieID);
 
     const formData = new FormData();
 
-    formData.append("title", titre.value);
     formData.append("imageUrl", img);
+    formData.append("title", titre.value);
     formData.append("categoryId", categorieID);
 
     for (const value of formData.values()) {
@@ -400,7 +400,6 @@ function addImageToBackend() {
     async function updateDatabase() {
       let token = window.sessionStorage.getItem("token");
       token = JSON.parse(token).token;
-      //console.log(token);
       const request = await fetch(`http://localhost:5678/api/works`, {
         headers: {
           Authorization: `Bearer ${token}`,
