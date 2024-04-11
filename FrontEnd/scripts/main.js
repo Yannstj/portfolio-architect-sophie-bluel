@@ -384,26 +384,26 @@ function addImageToBackend() {
     let categorieID = categorie.options[categorie.selectedIndex].id;
     const img = file[0].name;
 
-    parseInt(categorieID);
+    //parseInt(categorieID);
     console.log(categorieID);
 
     const formData = new FormData();
 
     formData.append("title", titre.value);
-    formData.append("imgUrl", img);
+    formData.append("imageUrl", img);
     formData.append("categoryId", categorieID);
 
-    // for (const value of formData.values()) {
-    //   console.log(typeof value);
-    // }
+    for (const value of formData.values()) {
+      console.log(value);
+    }
     //console.log(formData); ou log body
     async function updateDatabase() {
       let token = window.sessionStorage.getItem("token");
       token = JSON.parse(token).token;
+      //console.log(token);
       const request = await fetch(`http://localhost:5678/api/works`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          //"Content-Type": "multipart/form-data",
         },
         method: "POST",
         body: formData,
