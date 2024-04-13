@@ -295,6 +295,7 @@ function editGalerie(works) {
   divAddPhoto.appendChild(addImage);
   divAddPhoto.after(imgPreview);
   divAddContainer.appendChild(pTag);
+
   // Init Titre & Catégorie Inputs
 
   const labelTitle = document.createElement("label");
@@ -382,20 +383,20 @@ function addImageToBackend() {
     const titre = document.getElementById("title");
     const categorie = document.getElementById("categorie");
     let categorieID = categorie.options[categorie.selectedIndex].id;
-    const img = file[0].name;
+    const img = file[0];
 
     //parseInt(categorieID);
     //console.log(categorieID);
 
     const formData = new FormData();
 
-    formData.append("imageUrl", img);
+    formData.append("image", img);
     formData.append("title", titre.value);
-    formData.append("categoryId", categorieID);
+    formData.append("category", categorieID);
 
-    for (const value of formData.values()) {
-      console.log(value);
-    }
+    // for (const value of formData.values()) {
+    //   console.log(value);
+    // }
     //console.log(formData); ou log body
     async function updateDatabase() {
       let token = window.sessionStorage.getItem("token");
@@ -413,3 +414,70 @@ function addImageToBackend() {
     updateDatabase();
   });
 }
+
+// document.querySelector(".addPhoto").addEventListener("submit", (event) => {
+//   event.preventDefault();
+//   addImageToBackend();
+// });
+
+// function addImageToBackend() {
+//   const form = document.querySelector(".addPhoto");
+
+//   const jsCloseModal = document.querySelector(".modal");
+//   const jsCloseModal2 = document.querySelector(".modal2");
+
+//   form.addEventListener("submit", async (event) => {
+//     event.preventDefault();
+
+//     const fileInput = document.getElementById("file");
+//     const title = document.getElementById("title").value;
+//     const category = document.getElementById("categorie");
+//     let categorieID = category.options[category.selectedIndex].id;
+//     /*
+//     console.log("Début de la soumission du formulaire");
+//     console.log("Titre:", titre);
+//     console.log("Catégorie ID:", category);
+// */
+//     if (!fileInput.files || fileInput.files.length === 0) {
+//       console.error("Aucun fichier sélectionné.");
+//       return;
+//     }
+
+//     const image = fileInput.files[0];
+
+//     //console.log("Image:", file.name);
+//     console.log(category);
+
+//     const formData = new FormData();
+//     formData.append("image", image);
+//     formData.append("title", title);
+//     formData.append("category", categorieID);
+
+//     try {
+//       let token = window.sessionStorage.getItem("token");
+//       token = JSON.parse(token).token;
+//       console.log("Token:", token);
+
+//       const request = await fetch("http://localhost:5678/api/works", {
+//         method: "POST",
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//         body: formData,
+//       });
+
+//       const responseData = await request.json();
+//       console.log("Réponse reçue:", responseData);
+//       jsCloseModal2.close();
+//       jsCloseModal.close();
+
+//       if (!request.ok) {
+//         throw new Error("Erreur HTTP: " + request.status);
+//       }
+
+//       // Réinitialiser le formulaire après soumission réussie
+//     } catch (error) {
+//       console.error("Erreur lors de l'envoi des données :", error);
+//     }
+//   });
+// }
