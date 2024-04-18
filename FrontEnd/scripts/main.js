@@ -1,7 +1,7 @@
 // import
 import { displayModal2, gererEditPage, logOut, removeImage } from "./edit.js";
+
 // Initialisation des variables
-//export let allProject = [];
 const response = await fetch("http://localhost:5678/api/works");
 
 //Récuperation des travaux
@@ -328,7 +328,6 @@ function editGalerieModal2() {
 
   // Generer les options dynamiquement grace au fetchCategorie
   fetchCategorie().then((category) => {
-    console.log(category);
     for (let i = 0; i < category.length; i++) {
       const option = document.createElement("option");
       option.setAttribute("value", `${category[i].name}`);
@@ -354,8 +353,6 @@ function editGalerieModal2() {
   pModal2.after(divValidation);
   divValidation.appendChild(validationButton);
 
-  //const formAction = document.querySelector(".addPhoto");
-
   addImageToBackend();
 }
 
@@ -377,8 +374,8 @@ function previewImage() {
 function addImageToBackend() {
   const form = document.querySelector(".addPhoto");
 
-  const jsCloseModal = document.querySelector(".modal");
-  const jsCloseModal2 = document.querySelector(".modal2");
+  // const jsCloseModal = document.querySelector(".modal");
+  // const jsCloseModal2 = document.querySelector(".modal2");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -396,7 +393,7 @@ function addImageToBackend() {
     const image = fileInput.files[0];
 
     //console.log("Image:", file.name);
-    console.log(category);
+    //console.log(category);
 
     const formData = new FormData();
     formData.append("image", image);
@@ -406,7 +403,6 @@ function addImageToBackend() {
     try {
       let token = window.sessionStorage.getItem("token");
       token = JSON.parse(token).token;
-      console.log("Token:", token);
 
       const request = await fetch("http://localhost:5678/api/works", {
         method: "POST",
@@ -417,10 +413,6 @@ function addImageToBackend() {
       });
 
       const responseData = await request.json();
-      console.log("Réponse reçue:", responseData);
-      jsCloseModal2.close();
-      jsCloseModal.close();
-      window.location.reload();
 
       if (!request.ok) {
         throw new Error("Erreur HTTP: " + request.status);
