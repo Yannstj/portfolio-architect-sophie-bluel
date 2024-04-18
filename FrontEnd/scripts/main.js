@@ -43,7 +43,7 @@ logOut();
 
 // Affichage dynamique des bouttons
 function generateMenu() {
-  const mesProjets = document.querySelector("#portfolio h2");
+  const mesProjets = document.querySelector("#portfolioTitle");
 
   const divButton = document.createElement("div");
   divButton.setAttribute("class", "box-filters");
@@ -242,9 +242,13 @@ function editGalerie(works) {
 
   //supprimer un projet (fonction importer de edit js)
   removeImage();
-
+  editGalerieModal2();
   // Ouvrir la 2eme modal
+  // impoted from edit js
   displayModal2(addButton);
+}
+
+function editGalerieModal2() {
   // construction de la 2ème modal
   const titleModal2 = document.querySelector(".titleModal2");
   // init formulaire
@@ -373,53 +377,6 @@ function previewImage() {
   }
 }
 
-// function addImageToBackend() {
-//   const validationButton = document.querySelector("#validateBtn");
-//   validationButton.addEventListener("click", (event) => {
-//     event.preventDefault();
-
-//     const file = document.getElementById("file").files;
-
-//     const titre = document.getElementById("title");
-//     const categorie = document.getElementById("categorie");
-//     let categorieID = categorie.options[categorie.selectedIndex].id;
-//     const img = file[0].name; // FOR THIS TO WORK WE DONT NEED .NAME !!!
-
-//     //parseInt(categorieID);
-//     //console.log(categorieID);
-
-//     const formData = new FormData();
-
-//     formData.append("imageUrl", img);
-//     formData.append("title", titre.value);
-//     formData.append("categoryId", categorieID);
-
-//     // for (const value of formData.values()) {
-//     //   console.log(value);
-//     // }
-//     //console.log(formData); ou log body
-//     async function updateDatabase() {
-//       let token = window.sessionStorage.getItem("token");
-//       token = JSON.parse(token).token;
-//       const request = await fetch(`http://localhost:5678/api/works`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//         method: "POST",
-//         body: formData,
-//       });
-//       console.log(await request.json());
-//     }
-
-//     updateDatabase();
-//   });
-// }
-
-// document.querySelector(".addPhoto").addEventListener("submit", (event) => {
-//   event.preventDefault();
-//   addImageToBackend();
-// });
-
 function addImageToBackend() {
   const form = document.querySelector(".addPhoto");
 
@@ -433,11 +390,7 @@ function addImageToBackend() {
     const title = document.getElementById("title").value;
     const category = document.getElementById("categorie");
     let categorieID = category.options[category.selectedIndex].id;
-    /*
-    console.log("Début de la soumission du formulaire");
-    console.log("Titre:", titre);
-    console.log("Catégorie ID:", category);
-*/
+
     if (!fileInput.files || fileInput.files.length === 0) {
       console.error("Aucun fichier sélectionné.");
       return;

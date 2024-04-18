@@ -174,6 +174,16 @@ nav li {
   font-size: 1.2em;
 }
 
+/* added */
+nav a {
+  text-decoration: none;
+  color: #000;
+}
+
+#logged a {
+  font-size: large;
+  font-weight: bold;
+}
 li:hover {
   color: #b1663c;
 }
@@ -373,18 +383,15 @@ input[name="email"] {
   margin-right: 8px;
 }
 
-#portfolio h2 {
-  /* position: relative;*/
+#portfolioTitle {
+  position: relative;
+  /* border: #000 solid 1px; */
 }
 
 .modal1 {
-  display: inline-block;
-
-  /* display: flex;
-  flex-direction: column;
-  position: relative; 
-  left: 690px;
-  bottom: 51px;*/
+  position: absolute;
+  bottom: 5px;
+  left: 61%;
 }
 
 #penTwo {
@@ -658,13 +665,14 @@ input[name="email"] {
   margin-bottom: 30px;
   color: #444444;
   font-family: "Work Sans";
+  padding-left: 15px;
 }
 
 .labelCategorie {
   display: block;
   font-size: medium;
   color: #3d3d3d;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 #categorie {
@@ -674,6 +682,8 @@ input[name="email"] {
   font-family: "Work Sans";
   border: none;
   filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.1));
+  border-right: 16px solid #fff;
+  padding-left: 16px;
 }
 
 .p-separation2 {
