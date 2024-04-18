@@ -354,12 +354,9 @@ function editGalerieModal2() {
   pModal2.after(divValidation);
   divValidation.appendChild(validationButton);
 
-  const formAction = document.querySelector(".addPhoto");
+  //const formAction = document.querySelector(".addPhoto");
 
-  formAction.addEventListener("submit", (event) => {
-    event.preventDefault();
-    addImageToBackend();
-  });
+  addImageToBackend();
 }
 
 function previewImage() {
@@ -423,6 +420,7 @@ function addImageToBackend() {
       console.log("Réponse reçue:", responseData);
       jsCloseModal2.close();
       jsCloseModal.close();
+      window.location.reload();
 
       if (!request.ok) {
         throw new Error("Erreur HTTP: " + request.status);
