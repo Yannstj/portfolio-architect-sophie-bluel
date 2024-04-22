@@ -374,9 +374,6 @@ function previewImage() {
 function addImageToBackend() {
   const form = document.querySelector(".addPhoto");
 
-  // const jsCloseModal = document.querySelector(".modal");
-  // const jsCloseModal2 = document.querySelector(".modal2");
-
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -386,14 +383,13 @@ function addImageToBackend() {
     let categorieID = category.options[category.selectedIndex].id;
 
     if (!fileInput.files || fileInput.files.length === 0) {
-      console.error("Aucun fichier sélectionné.");
+      alert("Ajouter un fichier");
       return;
     }
 
     const image = fileInput.files[0];
 
-    //console.log("Image:", file.name);
-    //console.log(category);
+    //console.log(`file size:${image.size}`);
 
     const formData = new FormData();
     formData.append("image", image);
@@ -403,6 +399,7 @@ function addImageToBackend() {
     try {
       let token = window.sessionStorage.getItem("token");
       token = JSON.parse(token).token;
+      formVerification(image, title);
 
       const request = await fetch("http://localhost:5678/api/works", {
         method: "POST",
@@ -423,4 +420,14 @@ function addImageToBackend() {
       console.error("Erreur lors de l'envoi des données :", error);
     }
   });
+}
+
+function formVerification(image, title) {
+  if (image > 4 * 1024 * 1024) alert("Le fichier est trop lourd");
+
+  const titleRegEx = new RegExp('^[a-zA-Z" ]+$');
+  const result = titleRegEx.test(title);
+  if (result === false || title === "") {
+    alert("Titre invalide");
+  }
 }
