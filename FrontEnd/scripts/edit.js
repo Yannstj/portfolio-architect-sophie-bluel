@@ -41,7 +41,6 @@ export function setModifierButton() {
   modalAnchor.innerHTML = `<i class="fa-regular fa-pen-to-square" id="penTwo"><p>modifier</p></i>`;
   mesProjets.after(divSpan);
   divSpan.appendChild(modalAnchor);
-  //modalSpan.appendChild(modalAnchor);
   displayModal();
   closeModal();
 }
@@ -61,15 +60,11 @@ export function closeModal() {
   const jsCloseModal = document.querySelector(".js-close-modal");
   jsCloseModal.addEventListener("click", () => {
     dialog1.close();
-    // refresh page when done
-    //location.reload();
   });
   const jsCloseModal2 = document.querySelector(".js-close-modal2");
   jsCloseModal2.addEventListener("click", () => {
     dialog1.close();
     dialog2.close();
-    // refresh page when done
-    //location.reload();
   });
 }
 
