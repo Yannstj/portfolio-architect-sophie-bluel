@@ -62,14 +62,14 @@ export function closeModal() {
   jsCloseModal.addEventListener("click", () => {
     dialog1.close();
     // refresh page when done
-    location.reload();
+    //location.reload();
   });
   const jsCloseModal2 = document.querySelector(".js-close-modal2");
   jsCloseModal2.addEventListener("click", () => {
     dialog1.close();
     dialog2.close();
     // refresh page when done
-    location.reload();
+    //location.reload();
   });
 }
 
@@ -104,20 +104,27 @@ export function returnModal2() {
 
 export function removeImage() {
   const imgContainer = document.querySelector(".globalImgContainer");
+  const imgFigure = document.querySelectorAll(".mainFigure");
+  console.log(imgFigure);
   imgContainer.addEventListener("click", (event) => {
     event.preventDefault();
     // here we use closest methodes because queryselector doesnt work on i tag
     const trashIcon = event.target.closest(".fa-trash-can");
     const imgSelected = event.target.closest(".trashIcon");
+    const img = imgSelected.querySelector("img");
+    const imgID = img.getAttribute("id");
     if (trashIcon !== null) {
-      const img = imgSelected.querySelector("img");
-      const imgID = img.getAttribute("id");
-      removeSelectedImg(imgID, imgSelected);
+      imgFigure.forEach((element) => {
+        if (element.id === imgID) {
+          console.log(imgID);
+          removeSelectedImg(element, imgID, imgSelected);
+        }
+      });
     }
   });
 }
 
-export async function removeSelectedImg(imgID, imgSelected) {
+export async function removeSelectedImg(figure, imgID, imgSelected) {
   let token = window.sessionStorage.getItem("token");
   // permet de recuperer le token au bon format
   token = JSON.parse(token).token;
@@ -130,7 +137,8 @@ export async function removeSelectedImg(imgID, imgSelected) {
   );
   if (deleteRequest.ok) {
     // premet de voir l'image ce supprimer sur la modal, mais la ferme quand même
-    imgSelected.remove();
+    figure.remove(); // Permet de remove sur la main page
+    imgSelected.remove(); // remove img only in modal
   }
 }
 export function displayModal2(addButton) {

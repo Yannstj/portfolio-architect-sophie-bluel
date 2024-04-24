@@ -85,6 +85,8 @@ function generateGalerie(works) {
     const figure = document.createElement("figure");
     const img = document.createElement("img");
     const figcaption = document.createElement("figcaption");
+    figure.setAttribute("id", works[i].id);
+    figure.setAttribute("class", "mainFigure");
     img.setAttribute("src", works[i].imageUrl);
     img.setAttribute("alt", works[i].title);
     figcaption.innerText = works[i].title;
@@ -103,10 +105,18 @@ function generateGalerie(works) {
  * @param {*} works
  */
 function allGalerie(works) {
-  //console.log(token);
   document.querySelector("#btn-all").addEventListener("click", () => {
     generateGalerie(works);
   });
+}
+
+// Refacto Test fct ALL Categorie
+
+function filterByCategorie() {
+  const btnObj = document.querySelector("#btn-obj");
+  const buttonAppart = document.querySelector("#btn-appart");
+  const buttonHotelRestaurant = document.querySelector("#btn-hotel-restaurant");
+  fetchCategorie().then((category) => {});
 }
 
 // Filtre Objets
@@ -410,6 +420,11 @@ function addImageToBackend() {
       });
 
       const responseData = await request.json();
+      console.log(responseData);
+      const titleData = responseData.title;
+      const id = responseData.id;
+      const imgUrl = responseData.imageUrl;
+      displayNewWork(titleData, id, imgUrl);
 
       if (!request.ok) {
         throw new Error("Erreur HTTP: " + request.status);
@@ -417,7 +432,8 @@ function addImageToBackend() {
 
       // Réinitialiser le formulaire après soumission réussie
     } catch (error) {
-      console.error("Erreur lors de l'envoi des données :", error);
+      //console.error("Erreur lors de l'envoi des données :", error);
+      alert("Veuillez remplir tout les champs");
     }
   });
 }
@@ -430,4 +446,19 @@ function formVerification(image, title) {
   if (result === false || title === "") {
     alert("Titre invalide");
   }
+}
+function displayNewWork(titleData, id, imgUrl) {
+  const gallery = document.querySelector(".gallery");
+  const figure = document.createElement("figure");
+  const img = document.createElement("img");
+  const figcaption = document.createElement("figcaption");
+
+  figure.setAttribute("id", id);
+  figure.setAttribute("class", "mainFigure");
+  img.setAttribute("src", imgUrl);
+  figcaption.innerHTML = titleData;
+
+  gallery.appendChild(figure);
+  figure.appendChild(img);
+  figure.appendChild(figcaption);
 }

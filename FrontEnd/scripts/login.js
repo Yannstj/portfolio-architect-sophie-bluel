@@ -1,7 +1,3 @@
-// Les logs sont :
-//email: sophie.bluel@test.tld
-//password: S0phie
-
 //Initialisation
 
 //Appel des fonctions
@@ -34,26 +30,29 @@ function login() {
 // nb bien mettre le try catch dans l'eventListnner sinon bug
 
 async function postLoginRequest(chargeUtile) {
-  const loginRequestResponse = await fetch(
-    "http://localhost:5678/api/users/login",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: chargeUtile,
-      //Authorization: `Bearer ${token}` pour les fonctionnalité suivante
+  try {
+    const loginRequestResponse = await fetch(
+      "http://localhost:5678/api/users/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: chargeUtile,
+      }
+    );
+    const tokenID = await loginRequestResponse.json();
+    if (!loginRequestResponse.ok) {
+      throw new Error("client error");
     }
-  );
-  const tokenID = await loginRequestResponse.json();
-  console.log(loginRequestResponse.status); // 200 if ok
-  console.log(tokenID); // we need to save this in storage for maintain user loged
-  const valueToken = JSON.stringify(tokenID);
-  if (loginRequestResponse.status === 200) {
-    window.sessionStorage.setItem("token", valueToken);
-    const token = window.sessionStorage.getItem("token");
-    document.location.href = "index.html";
-    //console.log(token); dont work car redirected
+    const valueToken = JSON.stringify(tokenID);
+    if (loginRequestResponse.status === 200) {
+      window.sessionStorage.setItem("token", valueToken);
+      //const token = window.sessionStorage.getItem("token");
+      document.location.href = "index.html";
+    }
+  } catch (erreur) {
+    console.log(erreur);
+    const mute = erreur;
   }
-  //gererPostRequest(loginRequestResponse.json());
 }
 
 // fonctions de gestion de la validité des inputs
@@ -71,6 +70,10 @@ function verifierPassword(password) {
   }
 }
 
+function gererErreurClient() {
+  throw new Error("Identifiant ou mot de passe incorrect");
+}
+
 function afficherMessageErreur(message) {
   let spanErreurMessage = document.getElementById("erreurMessage");
   if (!spanErreurMessage) {
@@ -82,12 +85,6 @@ function afficherMessageErreur(message) {
   spanErreurMessage.innerText = message;
 }
 
-function verfierStorage() {}
-// fonctions de gestion de la reponse serveur
-
-function gererPostRequest(response) {
-  console.log(response);
-}
 // switch va tester si la valeur passer en paramètre === la valeur de case
 // on a donc ici res.status = x (number) === x (number)
 //   switch (response.status) {
