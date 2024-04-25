@@ -100,7 +100,6 @@ export function returnModal2() {
 export function removeImage() {
   const imgContainer = document.querySelector(".globalImgContainer");
   const imgFigure = document.querySelectorAll(".mainFigure");
-  console.log(imgFigure);
   imgContainer.addEventListener("click", (event) => {
     event.preventDefault();
     // here we use closest methodes because queryselector doesnt work on i tag
@@ -111,7 +110,6 @@ export function removeImage() {
     if (trashIcon !== null) {
       imgFigure.forEach((element) => {
         if (element.id === imgID) {
-          console.log(imgID);
           removeSelectedImg(element, imgID, imgSelected);
         }
       });

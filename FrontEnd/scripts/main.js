@@ -1,28 +1,69 @@
 // import
 import { displayModal2, gererEditPage, logOut, removeImage } from "./edit.js";
 
-// Initialisation des variables
-const response = await fetch("http://localhost:5678/api/works");
+// function call
+dataGestion();
+generateMenu();
+gererEditPage();
+logOut();
 
 //Récuperation des travaux
+/**
+ *
+ * @returns
+ */
 async function fetchWork() {
-  if (response.ok) {
-    // here we clone the response because we reused response.json()
-    // on fetch categorie function
-    let res = response.clone();
-    // without return, we log the error to
-    // response.json() return a promise
-    return res.json();
+  try {
+    const response = await fetch("http://localhost:5678/api/works");
+    if (!response.ok) {
+      throw new Error("Could not fetch ressource");
+    }
+    let responseClone = response.clone();
+    const data = await responseClone.json();
+    return data;
+  } catch (error) {
+    console.error(error);
   }
-  throw new Error("Erreur lors de la récuperation des données");
 }
+// Fetch all Categories
+/**
+ *
+ * @returns
+ */
+async function fetchCategorie() {
+  try {
+    const response = await fetch("http://localhost:5678/api/categories");
+    if (!response.ok) {
+      throw new Error("Could not fetch ressource");
+    }
+    // response.json() return a promise that can be cousume only once
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// function dataGestion() {
+//   let token = window.sessionStorage.getItem("token");
+//   fetchWork().then((works) => {
+//     generateGalerie(works);
+//     editGalerie(works);
+//     if (token === null) {
+//       fetchCategorie().then((category) => {
+//         allGalerie(works);
+//         filterCategory(works, category);
+//       });
+//     }
+//   });
+// }
+
 // Traitements des data reçu
 function dataGestion() {
   let token = window.sessionStorage.getItem("token");
   fetchWork().then((works) => {
     generateGalerie(works);
     editGalerie(works);
-    //console.log(allProject);
     if (token === null) {
       allGalerie(works);
       filterObjets(works);
@@ -32,12 +73,6 @@ function dataGestion() {
     return works;
   });
 }
-// Appel des fonction
-
-dataGestion();
-generateMenu();
-gererEditPage();
-logOut();
 
 // Creation des fonction
 
@@ -98,6 +133,23 @@ function generateGalerie(works) {
 }
 
 /// FILTRE ///
+// function filterCategory(works, category) {
+//   const btnFilters = document.querySelectorAll(".btn-filters");
+//   const gallery = document.querySelector(".gallery");
+//   gallery.innerHTML = "";
+
+//   for (let i = 0; i < btnFilters.length; i++) {
+//     btnFilters[i].addEventListener("click", () => {
+//       for (let i = 0; i < works.length; i++) {
+//         for (let i = 0; i < category.length; i++) {
+//           if (works[i].categoryId === category[i].id) {
+
+//           }
+//         }
+//       }
+//     });
+//   }
+// }
 
 // Toutes la galerie
 /**
@@ -108,15 +160,6 @@ function allGalerie(works) {
   document.querySelector("#btn-all").addEventListener("click", () => {
     generateGalerie(works);
   });
-}
-
-// Refacto Test fct ALL Categorie
-
-function filterByCategorie() {
-  const btnObj = document.querySelector("#btn-obj");
-  const buttonAppart = document.querySelector("#btn-appart");
-  const buttonHotelRestaurant = document.querySelector("#btn-hotel-restaurant");
-  fetchCategorie().then((category) => {});
 }
 
 // Filtre Objets
@@ -196,18 +239,6 @@ function filterHotelAndRestaurant(works) {
       figure.appendChild(figcaption);
     }
   });
-}
-
-// Fetch all Categories
-async function fetchCategorie() {
-  // Attention l'autre constante response est une variable global
-  const response = await fetch("http://localhost:5678/api/categories");
-  if (response.ok) {
-    // without return, we log the error to
-    // response.json() return a promise that can be cousume only once
-    return response.json();
-  }
-  throw new Error("Erreur lors de la récuperation des données");
 }
 
 // We need to fetch all categories for editing galerie
@@ -388,6 +419,7 @@ function addImageToBackend() {
     event.preventDefault();
 
     const fileInput = document.getElementById("file");
+    const preview = document.getElementById("preview");
     const title = document.getElementById("title").value;
     const category = document.getElementById("categorie");
     let categorieID = category.options[category.selectedIndex].id;
@@ -398,8 +430,6 @@ function addImageToBackend() {
     }
 
     const image = fileInput.files[0];
-
-    //console.log(`file size:${image.size}`);
 
     const formData = new FormData();
     formData.append("image", image);
@@ -420,7 +450,7 @@ function addImageToBackend() {
       });
 
       const responseData = await request.json();
-      console.log(responseData);
+
       const titleData = responseData.title;
       const id = responseData.id;
       const imgUrl = responseData.imageUrl;
@@ -435,6 +465,10 @@ function addImageToBackend() {
       //console.error("Erreur lors de l'envoi des données :", error);
       alert("Veuillez remplir tout les champs");
     }
+    preview.removeAttribute("src");
+    const photoContainer = document.querySelector(".photoContainer");
+    photoContainer.style.backgroundColor = "#b9c5cc";
+    form.reset();
   });
 }
 
