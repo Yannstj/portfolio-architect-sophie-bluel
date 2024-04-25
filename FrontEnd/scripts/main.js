@@ -131,7 +131,8 @@ function generateGalerie(works) {
     figure.appendChild(figcaption);
   }
 }
-
+// refacto work in progress
+///////////////////////////////////////////
 /// FILTRE ///
 // function filterCategory(works, category) {
 //   const btnFilters = document.querySelectorAll(".btn-filters");
@@ -150,6 +151,7 @@ function generateGalerie(works) {
 //     });
 //   }
 // }
+//////////////////////////////////////////
 
 // Toutes la galerie
 /**
@@ -423,20 +425,21 @@ function addImageToBackend() {
     const title = document.getElementById("title").value;
     const category = document.getElementById("categorie");
     let categorieID = category.options[category.selectedIndex].id;
-
-    if (!fileInput.files || fileInput.files.length === 0) {
-      alert("Ajouter un fichier");
-      return;
-    }
-
-    const image = fileInput.files[0];
-
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("title", title);
-    formData.append("category", categorieID);
-
     try {
+      if (!fileInput.files || fileInput.files.length === 0) {
+        // Sert de message d'erreur et prévient une mauvaise soumission
+        //alert("Ajoutez une photo !");
+        throw new Error("Ajoutez une photo !");
+        //return;
+      }
+
+      const image = fileInput.files[0];
+
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("title", title);
+      formData.append("category", categorieID);
+
       let token = window.sessionStorage.getItem("token");
       token = JSON.parse(token).token;
       formVerification(image, title);
@@ -459,26 +462,29 @@ function addImageToBackend() {
       if (!request.ok) {
         throw new Error("Erreur HTTP: " + request.status);
       }
-
       // Réinitialiser le formulaire après soumission réussie
+      preview.removeAttribute("src");
+      const photoContainer = document.querySelector(".photoContainer");
+      photoContainer.style.backgroundColor = "#b9c5cc";
+      form.reset();
     } catch (error) {
-      //console.error("Erreur lors de l'envoi des données :", error);
-      alert("Veuillez remplir tout les champs");
+      //console.log(error);
+      alert(error.message);
     }
-    preview.removeAttribute("src");
-    const photoContainer = document.querySelector(".photoContainer");
-    photoContainer.style.backgroundColor = "#b9c5cc";
-    form.reset();
   });
 }
 
 function formVerification(image, title) {
-  if (image > 4 * 1024 * 1024) alert("Le fichier est trop lourd");
+  if (image > 4 * 1024 * 1024) {
+    throw new Error("Le fichier et trop lourd !");
+  }
 
   const titleRegEx = new RegExp('^[a-zA-Z" ]+$');
   const result = titleRegEx.test(title);
-  if (result === false || title === "") {
-    alert("Titre invalide");
+  if (title === "") {
+    throw new Error("Veuillez remplir le champ titre.");
+  } else if (result === false) {
+    throw new Error("Le titre comprend des caratères non valide.");
   }
 }
 function displayNewWork(titleData, id, imgUrl) {

@@ -41,7 +41,7 @@ async function postLoginRequest(chargeUtile) {
     );
     const tokenID = await loginRequestResponse.json();
     if (!loginRequestResponse.ok) {
-      throw new Error("client error");
+      throw new Error("Identifiant ou mot de passe incorrect");
     }
     const valueToken = JSON.stringify(tokenID);
     if (loginRequestResponse.status === 200) {
@@ -49,8 +49,8 @@ async function postLoginRequest(chargeUtile) {
       document.location.href = "index.html";
     }
   } catch (erreur) {
-    console.log(erreur);
     const mute = erreur;
+    afficherMessageErreur(erreur.message);
   }
 }
 
@@ -59,7 +59,7 @@ function verfierEmail(email) {
   const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+.[a-z0-9._-]+");
   // Si email ne correspond pas
   if (!emailRegExp.test(email)) {
-    throw new Error("L'email n'est pas valide");
+    throw new Error("Veuillez saisir les champs");
   }
 }
 
