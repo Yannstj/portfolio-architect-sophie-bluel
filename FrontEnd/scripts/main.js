@@ -122,81 +122,54 @@ function allGalerie(works) {
     generateGalerie(works);
   });
 }
+
+function filterWorksByCategory(works, category) {
+  const filteredWorks = works.filter((work) => work.category.name === category);
+
+  // Au clique on efface la gallery
+  const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = "";
+
+  // ON parcours l'array filtré et crée les nouveaux éléments
+  for (const work of filteredWorks) {
+    const figure = document.createElement("figure");
+    const img = document.createElement("img");
+    const figcaption = document.createElement("figcaption");
+
+    img.setAttribute("src", work.imageUrl);
+    img.setAttribute("alt", work.title);
+    figcaption.innerText = work.title;
+
+    gallery.appendChild(figure);
+    figure.appendChild(img);
+    figure.appendChild(figcaption);
+  }
+}
+
 // Filtre Objets
 function filterObjets(works) {
   const btnObj = document.querySelector("#btn-obj");
   btnObj.addEventListener("click", () => {
-    const objetsFilter = works.filter(
-      (works) => works.category.name === "Objets"
-    );
-    // Au clique on efface la gallery
-    const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = "";
-    // On parcours l'array filtrer et crée les nouveaux élements
-    for (let i = 0; i < objetsFilter.length; i++) {
-      const figure = document.createElement("figure");
-      const img = document.createElement("img");
-      const figcaption = document.createElement("figcaption");
-      img.setAttribute("src", objetsFilter[i].imageUrl);
-      img.setAttribute("alt", objetsFilter[i].title);
-      figcaption.innerText = objetsFilter[i].title;
-
-      gallery.appendChild(figure);
-      figure.appendChild(img);
-      figure.appendChild(figcaption);
-    }
+    filterWorksByCategory(works, "Objets");
   });
 }
+
 // Filtre appartements
 function filterAppartement(works) {
   const buttonAppart = document.querySelector("#btn-appart");
   buttonAppart.addEventListener("click", () => {
-    const appartFilter = works.filter(
-      (works) => works.category.name === "Appartements"
-    );
-    // Au clique on efface la gallery
-    const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = "";
-    // On parcours l'array filtrer et crée les nouveaux élements
-    for (let i = 0; i < appartFilter.length; i++) {
-      const figure = document.createElement("figure");
-      const img = document.createElement("img");
-      const figcaption = document.createElement("figcaption");
-      img.setAttribute("src", appartFilter[i].imageUrl);
-      img.setAttribute("alt", appartFilter[i].title);
-      figcaption.innerText = appartFilter[i].title;
-
-      gallery.appendChild(figure);
-      figure.appendChild(img);
-      figure.appendChild(figcaption);
-    }
+    filterWorksByCategory(works, "Appartements");
   });
 }
+
 // Filtre Hotel & restaurants
 function filterHotelAndRestaurant(works) {
   const buttonHotelRestaurant = document.querySelector("#btn-hotel-restaurant");
   buttonHotelRestaurant.addEventListener("click", () => {
-    const hotelAndRestaurantFilter = works.filter(
-      (works) => works.category.name === "Hotels & restaurants"
-    );
-    // Au clique on efface la gallery
-    const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = "";
-    // On parcours l'array filtrer et crée les nouveaux élements
-    for (let i = 0; i < hotelAndRestaurantFilter.length; i++) {
-      const figure = document.createElement("figure");
-      const img = document.createElement("img");
-      const figcaption = document.createElement("figcaption");
-      img.setAttribute("src", hotelAndRestaurantFilter[i].imageUrl);
-      img.setAttribute("alt", hotelAndRestaurantFilter[i].title);
-      figcaption.innerText = hotelAndRestaurantFilter[i].title;
-
-      gallery.appendChild(figure);
-      figure.appendChild(img);
-      figure.appendChild(figcaption);
-    }
+    filterWorksByCategory(works, "Hotels & restaurants");
   });
 }
+
 // We need to fetch all categories for editing galerie
 function editGalerie(works) {
   const titleModal = document.querySelector(".titleModal");
@@ -302,6 +275,7 @@ function editGalerieModal2() {
   inputTitle.setAttribute("type", "text");
   inputTitle.setAttribute("id", "title");
   inputTitle.setAttribute("name", "title");
+  inputTitle.setAttribute("autocomplete", "on");
 
   form.appendChild(labelTitle);
   form.appendChild(inputTitle);
@@ -401,22 +375,26 @@ function addImageToBackend() {
 
       const responseData = await request.json();
 
+      if (!request.ok) {
+        throw new Error("Erreur HTTP: " + request.status);
+      }
+
       const titleData = responseData.title;
       const id = responseData.id;
       const imgUrl = responseData.imageUrl;
 
-      if (!request.ok) {
-        throw new Error("Erreur HTTP: " + request.status);
-      }
       // On Ajoute le work au DOM
       displayNewWork(titleData, id, imgUrl);
+      closeModalAfterAdd();
       // Réinitialiser le formulaire après soumission réussie
       preview.removeAttribute("src");
       const photoContainer = document.querySelector(".photoContainer");
       photoContainer.style.backgroundColor = "#b9c5cc";
       form.reset();
     } catch (error) {
+      //alert slow form submition can be increase
       alert(error.message);
+      //console.log(error.message);
     }
   });
 }
@@ -450,37 +428,10 @@ function displayNewWork(titleData, id, imgUrl) {
   figure.appendChild(figcaption);
 }
 
-//////////////////////////// Starting refacto ///////////////////////
-// function dataGestion() {
-//   let token = window.sessionStorage.getItem("token");
-//   fetchWork().then((works) => {
-//     generateGalerie(works);
-//     editGalerie(works);
-//     if (token === null) {
-//       fetchCategorie().then((category) => {
-//         allGalerie(works);
-//         filterCategory(works, category);
-//       });
-//     }
-//   });
-// }
-
-/// FILTRE ///
-// function filterCategory(works, category) {
-//   const btnFilters = document.querySelectorAll(".btn-filters");
-//   const gallery = document.querySelector(".gallery");
-//   gallery.innerHTML = "";
-
-//   for (let i = 0; i < btnFilters.length; i++) {
-//     btnFilters[i].addEventListener("click", () => {
-//       for (let i = 0; i < works.length; i++) {
-//         for (let i = 0; i < category.length; i++) {
-//           if (works[i].categoryId === category[i].id) {
-
-//           }
-//         }
-//       }
-//     });
-//   }
-// }
-//////////////////////////////////////////
+//this function can be commented depend on user exp
+function closeModalAfterAdd() {
+  const dialog1 = document.querySelector(".modal");
+  const dialog2 = document.querySelector(".modal2");
+  dialog1.close();
+  dialog2.close();
+}
