@@ -10,9 +10,10 @@ function login() {
     event.preventDefault();
     try {
       let email = event.target.querySelector("[name=email]").value;
-      verfierEmail(email);
+      //verfierEmail(email);
       let password = event.target.querySelector("[name=password]").value;
-      verifierPassword(password);
+      //verifierPassword(password);
+      verfierMailPwd(email, password);
       // Set data to JSON
       let logData = {
         email: email,
@@ -49,22 +50,23 @@ async function postLoginRequest(chargeUtile) {
       document.location.href = "index.html";
     }
   } catch (erreur) {
-    const mute = erreur;
     afficherMessageErreur(erreur.message);
   }
 }
 
-// fonctions de gestion de la validité des inputs
-function verfierEmail(email) {
+function verfierMailPwd(email, password) {
   const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+.[a-z0-9._-]+");
-  // Si email ne correspond pas
-  if (!emailRegExp.test(email)) {
-    throw new Error("Veuillez saisir les champs");
+  if (email === "" && password === "") {
+    throw new Error("Veuillez remplir les champs");
   }
-}
-
-function verifierPassword(password) {
-  if (password.length < 5) {
+  if (email === "") {
+    throw new Error("Veuillez remplir le champ e-mail");
+  } else if (!emailRegExp.test(email)) {
+    throw new Error("e-mail invalide");
+  }
+  if (password === "") {
+    throw new Error("Insérer un mot de passe");
+  } else if (password.length < 5) {
     throw new Error("Le mot de passe est trop court");
   }
 }

@@ -1,6 +1,5 @@
 // import
 import { displayModal2, gererEditPage, logOut, removeImage } from "./edit.js";
-
 // function call
 dataGestion();
 generateMenu();
@@ -43,21 +42,6 @@ async function fetchCategorie() {
     console.error(error);
   }
 }
-
-// function dataGestion() {
-//   let token = window.sessionStorage.getItem("token");
-//   fetchWork().then((works) => {
-//     generateGalerie(works);
-//     editGalerie(works);
-//     if (token === null) {
-//       fetchCategorie().then((category) => {
-//         allGalerie(works);
-//         filterCategory(works, category);
-//       });
-//     }
-//   });
-// }
-
 // Traitements des data reçu
 function dataGestion() {
   let token = window.sessionStorage.getItem("token");
@@ -73,7 +57,6 @@ function dataGestion() {
     return works;
   });
 }
-
 // Creation des fonction
 
 // Affichage dynamique des bouttons
@@ -87,7 +70,6 @@ function generateMenu() {
   const buttonObject = document.createElement("button");
   const buttonAppart = document.createElement("button");
   const buttonHotelRestaurant = document.createElement("button");
-
   // Création du bouton tous
   buttonAllProject.innerText = "Tous";
   buttonAllProject.setAttribute("id", "btn-all");
@@ -111,7 +93,6 @@ function generateMenu() {
   divButton.appendChild(buttonAppart);
   divButton.appendChild(buttonHotelRestaurant);
 }
-
 // Affichage dynamique de la gallerie
 function generateGalerie(works) {
   const gallery = document.querySelector(".gallery");
@@ -131,28 +112,6 @@ function generateGalerie(works) {
     figure.appendChild(figcaption);
   }
 }
-// refacto work in progress
-///////////////////////////////////////////
-/// FILTRE ///
-// function filterCategory(works, category) {
-//   const btnFilters = document.querySelectorAll(".btn-filters");
-//   const gallery = document.querySelector(".gallery");
-//   gallery.innerHTML = "";
-
-//   for (let i = 0; i < btnFilters.length; i++) {
-//     btnFilters[i].addEventListener("click", () => {
-//       for (let i = 0; i < works.length; i++) {
-//         for (let i = 0; i < category.length; i++) {
-//           if (works[i].categoryId === category[i].id) {
-
-//           }
-//         }
-//       }
-//     });
-//   }
-// }
-//////////////////////////////////////////
-
 // Toutes la galerie
 /**
  *
@@ -163,7 +122,6 @@ function allGalerie(works) {
     generateGalerie(works);
   });
 }
-
 // Filtre Objets
 function filterObjets(works) {
   const btnObj = document.querySelector("#btn-obj");
@@ -174,7 +132,7 @@ function filterObjets(works) {
     // Au clique on efface la gallery
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
-    // ON parcours l'array filtrer et crée les nouveaux élements
+    // On parcours l'array filtrer et crée les nouveaux élements
     for (let i = 0; i < objetsFilter.length; i++) {
       const figure = document.createElement("figure");
       const img = document.createElement("img");
@@ -189,7 +147,6 @@ function filterObjets(works) {
     }
   });
 }
-
 // Filtre appartements
 function filterAppartement(works) {
   const buttonAppart = document.querySelector("#btn-appart");
@@ -200,7 +157,7 @@ function filterAppartement(works) {
     // Au clique on efface la gallery
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
-    // ON parcours l'array filtrer et crée les nouveaux élements
+    // On parcours l'array filtrer et crée les nouveaux élements
     for (let i = 0; i < appartFilter.length; i++) {
       const figure = document.createElement("figure");
       const img = document.createElement("img");
@@ -215,9 +172,7 @@ function filterAppartement(works) {
     }
   });
 }
-
 // Filtre Hotel & restaurants
-
 function filterHotelAndRestaurant(works) {
   const buttonHotelRestaurant = document.querySelector("#btn-hotel-restaurant");
   buttonHotelRestaurant.addEventListener("click", () => {
@@ -227,7 +182,7 @@ function filterHotelAndRestaurant(works) {
     // Au clique on efface la gallery
     const gallery = document.querySelector(".gallery");
     gallery.innerHTML = "";
-    // ON parcours l'array filtrer et crée les nouveaux élements
+    // On parcours l'array filtrer et crée les nouveaux élements
     for (let i = 0; i < hotelAndRestaurantFilter.length; i++) {
       const figure = document.createElement("figure");
       const img = document.createElement("img");
@@ -242,7 +197,6 @@ function filterHotelAndRestaurant(works) {
     }
   });
 }
-
 // We need to fetch all categories for editing galerie
 function editGalerie(works) {
   const titleModal = document.querySelector(".titleModal");
@@ -267,7 +221,6 @@ function editGalerie(works) {
     divImg.appendChild(divAnchor);
     divAnchor.appendChild(anchor);
     divAnchor.appendChild(img);
-    //complted
   }
   // creation de la separation
   const p = document.createElement("p");
@@ -276,13 +229,11 @@ function editGalerie(works) {
   separation.setAttribute("class", "separation");
   divGlobal.after(p);
   p.appendChild(separation);
-
   // creation du button pour ajouter une photo
   const addButton = document.createElement("button");
   addButton.setAttribute("id", "addBtn");
   addButton.innerHTML = "Ajouter une photo";
   p.after(addButton);
-
   //supprimer un projet (fonction importer de edit js)
   removeImage();
   editGalerieModal2();
@@ -342,9 +293,7 @@ function editGalerieModal2() {
   divAddPhoto.appendChild(addImage);
   divAddPhoto.after(imgPreview);
   divAddContainer.appendChild(pTag);
-
   // Init Titre & Catégorie Inputs
-
   const labelTitle = document.createElement("label");
   labelTitle.setAttribute("for", "title");
   labelTitle.setAttribute("class", "labelTitle");
@@ -386,7 +335,6 @@ function editGalerieModal2() {
   separationModal2.setAttribute("class", "separation2");
   inputCategorie.after(pModal2);
   pModal2.appendChild(separationModal2);
-
   // creation du button de Validation
   const divValidation = document.createElement("div");
   divValidation.setAttribute("class", "validate");
@@ -426,13 +374,10 @@ function addImageToBackend() {
     const category = document.getElementById("categorie");
     let categorieID = category.options[category.selectedIndex].id;
     try {
+      // On verifie la présence d'un fichier
       if (!fileInput.files || fileInput.files.length === 0) {
-        // Sert de message d'erreur et prévient une mauvaise soumission
-        //alert("Ajoutez une photo !");
         throw new Error("Ajoutez une photo !");
-        //return;
       }
-
       const image = fileInput.files[0];
 
       const formData = new FormData();
@@ -440,10 +385,12 @@ function addImageToBackend() {
       formData.append("title", title);
       formData.append("category", categorieID);
 
-      let token = window.sessionStorage.getItem("token");
-      token = JSON.parse(token).token;
+      // On verifie la taille de l'image et l'input title
       formVerification(image, title);
 
+      let token = window.sessionStorage.getItem("token");
+      token = JSON.parse(token).token;
+      // Si toutes les données sont ok, on fetch l'API
       const request = await fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers: {
@@ -457,18 +404,18 @@ function addImageToBackend() {
       const titleData = responseData.title;
       const id = responseData.id;
       const imgUrl = responseData.imageUrl;
-      displayNewWork(titleData, id, imgUrl);
 
       if (!request.ok) {
         throw new Error("Erreur HTTP: " + request.status);
       }
+      // On Ajoute le work au DOM
+      displayNewWork(titleData, id, imgUrl);
       // Réinitialiser le formulaire après soumission réussie
       preview.removeAttribute("src");
       const photoContainer = document.querySelector(".photoContainer");
       photoContainer.style.backgroundColor = "#b9c5cc";
       form.reset();
     } catch (error) {
-      //console.log(error);
       alert(error.message);
     }
   });
@@ -478,7 +425,6 @@ function formVerification(image, title) {
   if (image > 4 * 1024 * 1024) {
     throw new Error("Le fichier et trop lourd !");
   }
-
   const titleRegEx = new RegExp('^[a-zA-Z" ]+$');
   const result = titleRegEx.test(title);
   if (title === "") {
@@ -487,6 +433,7 @@ function formVerification(image, title) {
     throw new Error("Le titre comprend des caratères non valide.");
   }
 }
+
 function displayNewWork(titleData, id, imgUrl) {
   const gallery = document.querySelector(".gallery");
   const figure = document.createElement("figure");
@@ -502,3 +449,38 @@ function displayNewWork(titleData, id, imgUrl) {
   figure.appendChild(img);
   figure.appendChild(figcaption);
 }
+
+//////////////////////////// Starting refacto ///////////////////////
+// function dataGestion() {
+//   let token = window.sessionStorage.getItem("token");
+//   fetchWork().then((works) => {
+//     generateGalerie(works);
+//     editGalerie(works);
+//     if (token === null) {
+//       fetchCategorie().then((category) => {
+//         allGalerie(works);
+//         filterCategory(works, category);
+//       });
+//     }
+//   });
+// }
+
+/// FILTRE ///
+// function filterCategory(works, category) {
+//   const btnFilters = document.querySelectorAll(".btn-filters");
+//   const gallery = document.querySelector(".gallery");
+//   gallery.innerHTML = "";
+
+//   for (let i = 0; i < btnFilters.length; i++) {
+//     btnFilters[i].addEventListener("click", () => {
+//       for (let i = 0; i < works.length; i++) {
+//         for (let i = 0; i < category.length; i++) {
+//           if (works[i].categoryId === category[i].id) {
+
+//           }
+//         }
+//       }
+//     });
+//   }
+// }
+//////////////////////////////////////////
