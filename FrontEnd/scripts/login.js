@@ -21,6 +21,7 @@ function login() {
       };
       // Conversion du json en string pour le body de la requete
       let chargeUtile = JSON.stringify(logData);
+      // Reset le span
       afficherMessageErreur("");
       postLoginRequest(chargeUtile);
     } catch (erreur) {
